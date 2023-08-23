@@ -1,0 +1,11 @@
+| # | Instrucción      | valor SP |
+|---|------------------|----------|
+| 1 | org 3000h        | -----    |
+| 2 | rutina:mov bx, 3 | 7ffch    |
+| 3 | ret              | 7fffeh   |
+| 4 | org 2000h        | -----    |
+| 5 | push ax          | 7ffeh    |
+| 6 | call rutina      | 7ffch    |
+| 7 | pop bx           | 8000h    |
+| 8 | hlt              |          |
+| 9 | end              |          |

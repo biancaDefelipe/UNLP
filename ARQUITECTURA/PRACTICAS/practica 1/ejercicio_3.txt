@@ -1,0 +1,5 @@
+Al ejecutarse la instruccion 'call rut':
+1-Se invoca a la subrutina rut
+2-Se transfiere el control (Se carga el PC con la dirección de comienzo de la subrutina)
+3-Se apila la dirección de memoria siguiente al llamado de la subrutina 
+4-Se ejejecuta la subrutinahasta la instrucción ret, en donde se desapila el tope de la pila y se carga en el pc (se recupera el control)
