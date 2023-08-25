@@ -1,8 +1,23 @@
 | Código                                                  | Registro | Pila | Valor | Referencia |
 |---------------------------------------------------------|----------|------|-------|------------|
-| mov ax, 5<br>call subrutina                             |     x    |      |   x   |            |
-| mov dx, offset a<br>call subrutina                      |     x    |      |       |      x     |
-| mov bx, 5<br>push bx<br>call subrutina<br>pop bx        |          |   x  |   x   |            |
-| mov cx, offset a<br>push cx<br>call subrutina<br>pop cx |          |   x  |       |      x     |
-| mov dl, 5<br>call subrutina                             |     x    |      |   x   |            |
-| call subrutina<br>mov a, dx                             |     x    |      |   x   |            |
+| mov ax, 5                                               |          |      |       |            | 
+| call subrutina                                          |     x    |      |   x   |            |
+
+| mov dx, offset a                                        |          |      |       |            | 
+| call subrutina                                          |     x    |      |       |      x     |
+
+| mov bx, 5                                               |          |      |       |            |
+| push bx                                                 |          |      |       |            |
+| call subrutina                                          |          |      |       |            |
+| pop bx                                                  |          |      |       |            |
+
+| mov cx, offset a                                        |          |      |       |            |
+|push cx                                                  |          |      |       |            |
+|call subrutina                                           |          |      |       |            |
+|pop cx                                                   |          |   x  |       |      x     |
+
+| mov dl, 5                                               |          |      |       |            |
+| call subrutina                                          |     x    |      |   x   |            |
+
+| call subrutina                                          |          |      |       |            |
+| mov a, dx                                               |     x    |      |   x   |            |
