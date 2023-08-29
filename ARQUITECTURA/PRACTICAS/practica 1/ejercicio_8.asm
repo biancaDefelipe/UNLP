@@ -126,3 +126,84 @@ mov resultado, cx
 HLT
 END
 
+; 8e
+org 1000h 
+cad db "abbcde!"
+    db 0
+car db "b"
+
+org 3000h
+contar_car: mov bx, sp
+  ; recupero char buscado
+add bx, 4 
+mov al, [bx]
+  ; recupero inicio de cadena
+sub bx, 2 
+; inicializo contador 
+mov cl, 0
+
+mov dx, [bx]
+mov bx, dx
+loop:mov dl, [bx]
+cmp dl, 0 ; me fijo si llego al final
+jz fin
+inc bx ; sino incremento bx
+cmp al, dl
+jnz no_es_char
+inc cl
+no_es_char:jmp loop
+fin:ret
+
+org 2000h
+mov al, car
+push ax 
+mov ax, offset cad
+push ax
+call contar_car
+
+hlt
+end
+
+; 8f
+org 1000h 
+cad db "abpde!"
+    db 0
+ori dw 'p'
+remp dw 'c'
+
+org 3000h
+reemplazar_car: mov bx, sp
+  ; recupero char original
+add bx, 6
+mov al, [bx]
+  ; recupero char para reemplazar
+sub bx, 2 
+mov ah, [bx]
+  ;obtengo dir de incio de la cadena
+sub bx, 2
+mov dx, [bx]
+mov bx, dx
+
+loop:mov dl, [bx]
+cmp dl, 0 ; me fijo si llego al final
+jz fin
+inc bx ; sino incremento bx
+cmp al, dl
+jnz no_es_char
+dec bx
+mov [bx], ah
+jmp fin
+no_es_char:jmp loop
+fin:ret
+
+org 2000h
+mov ax, ori
+push ax 
+mov ax, remp
+push ax
+mov ax, offset cad
+push ax
+call reemplazar_car
+
+hlt
+end
