@@ -1,0 +1,11 @@
+4a) 
+En bx se almacena la dirección desde donde comienza a imprimir 
+En al se almacena la cantidad de caracteres a imprimir
+
+4b)
+En bx se almacena la dirección donde va a almacenarse lo que ingrese por teclado
+
+4c)
+Imprime el caracter ingresado
+En el registro cl queda almacenado el caracter completo que se ingreso por teclado
+
