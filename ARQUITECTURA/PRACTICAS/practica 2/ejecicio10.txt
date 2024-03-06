@@ -1,0 +1,15 @@
+Explicar detalladamente: 
+a) La función de los registros del PIC: ISR, IRR, IMR, INT0-INT7, EOI. Indicar la dirección de cada uno. 
+ISR(Registro de interrupción en servicio): Identifica la interrpción en servicio
+IRR (Registro de peticion de interrupción): Contiene los pedidos de interrupción provenientes de los periféricos
+    El bit asociado se pone en 1 cuando hay un pedido y en 0 cuando es atendida
+IMR (Registro de mascaras de interrupción): Se usa para habilitar/deshabilitar los pedidos de interrupción 
+INT0 ... INT7 : Vector de interrupciones (0-255, o sea 256 entradas):
+                -Esta en la parte mas baja de la memoria 
+                -Cada entrada de 4 bytes (2 para registro de segmento CS, y 2 para el contador de programa IP) tiene la dirección del procedimiento que brinda el servicio 
+                -16 bits mas altos siempre en cero
+                -De las 256 4 estan usadas por interrupciones por software: INT 0, INT 3, INT 6, INT 7.
+EOI:
+b) Cuáles de estos registros son programables y cómo trabaja la instrucción OUT. 
+
+c) Qué hacen y para qué se usan las instrucciones CLI y STI.

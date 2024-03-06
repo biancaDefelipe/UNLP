@@ -1,0 +1,150 @@
+1) 
+mov bx, offset cadena 
+push bx, cantidad
+push cantidad
+
+2)
+org 3000h 
+push ax
+push bx
+...
+pop bx
+pop ax
+
+3)El imr es el registro de 8 bits que enmascara las interrupciones, habilitando o desabilitandolas. 
+Colocarle un 1 en bit correspondiente a una interrupcion, la misma queda deshabilitada.
+Al enviarle el valor C7h (11000111) quedan habilitadas unicamente las int5, int4 y la int3 (cdma)
+
+4)
+La instruccion IRET se utliza para volver de una subrutina de interrupcion de software o hardware,
+pero a diferencia de RET, IRET ambién recupera el estado, es decir extrae 6 bytes de la pila:
+4 para la dir de retorno y 2 para el registro de estado (flags)
+
+5)
+El handshake a diferencia del PIO no necesita de la instrucción que envia el pulso al bit STROBE
+para imprimir el caracter, que si requiere la impresión por PIO 
+
+6)
+PB EQU 31H
+CB EQU 33H 
+PA EQU 30H
+CA EQU 32H
+
+ORG 1000H 
+MSJ DB "INGRESE LED A PRENDER (0-7)"
+FIN DB ? 
+MSJ_ERROR DB "CARACTER FUERA DE RANGO"
+FIN_ERROR DB ?
+LED DB ? 
+
+ORG 2000H
+; CONFIGURO PA COMO ENTRADA Y PB COMO SALIDA
+MOV AL, 0 
+OUT CB, AL 
+MOV AL, 0FFH
+OUT CA, AL 
+; 
+LOOP: MOV BX, OFFSET MSJ 
+MOV AL, OFFSET FIN-OFFSET MSJ
+INT 7 
+MOV BX, OFFSET LED
+INT 6
+MOV CL, LED 
+SUB CL, 30H 
+MOV AH, 0 
+CMP CL, 8 
+JNS ERROR 
+CMP AH, CL
+JS LED_ON
+ERROR:MOV BX, OFFSET MSJ_ERROR
+MOV AL, OFFSET FIN_ERROR - OFFSET MSJ_ERROR
+INT 7
+JMP LOOP
+LED_ON: MOV CH,1
+MULT2:CMP CL, 0
+JZ SEND_LED
+ADD CH, CH
+DEC CL 
+JMP MULT2
+;
+SEND_LED: IN AL, PA 
+
+
+MOV AL, CH 
+OUT PB, AL 
+IN AL, PA
+OR AL, 2
+OUT PA, AL 
+IN AL, PA 
+AND AL, 0FDH
+OUT PA, AL 
+
+FIN_LOOP:JMP LOOP
+
+END
+
+
+7)
+org 2000H
+in al, hand_estado
+and al, 7Fh
+out hand_estado, al 
+
+
+8)
+PIC EQU 20H
+HAND EQU 40H
+ID_F10 EQU 10
+
+
+ORG 40
+IP_F10 DW RUT_F10
+
+ORG 3000H
+RUT_F10: PUSH AX
+;DESHABILITO TODAS LAS INTERRUPCIONES
+MOV AL, 0FFH
+OUT PIC +1, AL 
+MOV FLAG, 1
+MOV AL, PIC 
+OUT PIC, AL 
+POP AX
+IRET
+
+
+ORG 1000H 
+DATOS DB "AABBCCDD"
+FIN DB ?
+FLAG DB 0
+
+ORG 2000H
+
+CLI 
+; CONFIGURO IMR
+MOV AL, 0FEH
+OUT PIC +1, AL 
+; CONFIGURO INT0
+MOV AL, ID_F10
+OUT PIC + 4, AL 
+
+IN AL, HAND +1
+AND AL, 7FH ; CONFIGURO HAND POR POLLING
+OUT HAND +1, AL 
+
+MOV BX, OFFSET DATOS
+STI
+SIGO: CMP FLAG,0
+JNZ FINAL
+POLL: IN AL, HAND +1
+AND AL,1
+JNZ POLL
+
+MOV AL, [BX]
+OUT HAND, AL 
+INC BX
+CMP BX, OFFSET FIN
+JNZ SIGO
+
+FINAL: INT 0
+
+END

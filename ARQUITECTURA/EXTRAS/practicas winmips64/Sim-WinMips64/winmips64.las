@@ -1,0 +1,1 @@
+C:\Users\bianc\Desktop\UNLP\ARQUITECTURA\EXTRAS\parciales y resoluciones\ejercicioparcial2023.s

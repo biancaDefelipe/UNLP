@@ -1,0 +1,12 @@
+-mtc1 r1, r1
+    Copia los 64 bits del registro entero r1 al registro f1 de punto flotante
+
+-cvt.l.d f1, f2
+    Convierte a entero el valor de p.f contenido en f2 y lo deja en f1
+
+-cvt.d.l f1, f2
+    Convierte a punto flotante el valor de f2 y lo deja en f1
+
+-mfc1,r1, f1
+    Copia los 64 bits del reg f1de p.f al reg r1
+    

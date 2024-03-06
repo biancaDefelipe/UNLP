@@ -1,0 +1,54 @@
+1)
+cx=25
+
+
+2)
+en el registro int0 del pic guardo el id de interrupcion, en este caso es 15 
+    int0=15
+
+id de la interrupion *4 = posicion en la tabla de vectores:
+    15*4=60
+
+en la posicion 60 de la tabla de vectores tengo que almacenar el valor 3500h
+que es la direccion de la subrutina de interrupcion 
+    org 60
+ip_f10 dw rut_f10
+org 3500h
+rut_f10:...
+
+3) 
+IRR= 0000 0101
+
+4) 
+org 1000h
+msj db "es digito"
+fin_msj db ?
+caracter db ?
+
+org 3000h 
+digito: push ax
+mov dl, 1
+mov al, [bx]
+cmp al, 30h
+js no_es
+cmp al, 39h
+jns no_es
+jmp fin
+no_es: mov dl, 0
+fin:pop ax
+ret 
+
+org 2000H
+mov bx, offset caracter
+int 6
+
+
+call digito
+cmp dl, 0
+jz final
+mov bx, offset msj 
+mov al, offset fin_msj - offset msj 
+int 7
+
+final: int 0
+end

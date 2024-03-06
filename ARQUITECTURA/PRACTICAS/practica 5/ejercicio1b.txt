@@ -1,0 +1,18 @@
+¿Cuántos atascos por dependencia de datos se generan? Observar en cada caso cuál es el dato en conflicto y las 
+instrucciones involucradas.
+
+4 atascos raw
+    - add.d f3, f2, f1 
+        Se produce un atasco tipo RAW (Dependecia de datos) ya que la instrucción anterior que cara un dato en f2 aún no finaliza la etapa M
+
+    - sd f3, res(r0)
+        Se producen 2 atascos RA porque una instrucción anterior (add.d f3, f2,f1) no termina de escribit f3 (recien f3 esta disponible en A3)
+
+    - sd f4 res(r0)
+        Se produce un atasco de tipo RAW porque la instrucción de multplicación apun no llega a la etapa M&
+        
+2 atascos str
+    - sd f3, res(r0)
+        Se produce un atasco str porque la instrucción de suma (dadd.d) y esta, intentan ejecutar la misma etapa mem
+
+        - sd f4 res(r0)

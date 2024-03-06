@@ -1,0 +1,18 @@
+2a) Se genera un atasco en la etapa id de la instrucción sd r2, A (r0) 
+    ya que en esta fase necesito acceder al banco de registros para buscar
+    r2 pero este registro es modificado en la instruccion anterior y todavía
+    no llego a la etapa de wb, por ende no esta disponible
+
+    Se genera un atasco por dependencia de datos de tipo RAW  
+
+    Promedio de ciclos por inctrucción: 
+    11 ciclos/ 5 instrucciones = 2.2 ciclos por instrucción
+
+2b) Con el forwarding habilitado no se genera ningun atasco ya que el valor
+contenido en r2 puede ser accedido por la instrucción sd r2,A (r0) antes de
+que la instrucción anterior llegue a la etapa de WB (al final de la
+etapa MEM) gracias a los buffers 
+    Con el forwarding habilitado, el color verde indica que los datos 
+    contenidos en estos ya están disponibles en la etapa MEM
+
+    El cpi es de 9 ciclos / 5 instrucciones = 1.8 CPI

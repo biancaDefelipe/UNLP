@@ -1,0 +1,72 @@
+1) 10. mov bx, offset oso
+   12. mov al, [bx]
+
+2) modificar registro imr: 
+    mov al, 0FEH
+    out imr, al ; imr= 21h
+  modificar registro de la int1: 
+    mov al, 10
+    out int, al ; int1= 25h 
+
+3) 
+Si, en el pulso siguiente cuando el registro CONT valga 1 y coincida con el registro COMP
+el timer enviara una señal de interrupción. 
+
+4) org 2000H
+; configuro pb como salida
+mov al, 0
+out cb, al 
+
+; apago todos los leds menos el numero 7 
+mov al, 80h
+out pb, al 
+
+5) 
+pio equ 30h 
+org 1000h 
+msj db "activado"
+fin db ? 
+
+org 2000h 
+mov al, 0ffh ; configuro pa como entrada
+out pio +2, al 
+
+in al, pio 
+cmp al, 81h; me fijo si estan prendidas la primera y la ultima 
+jnz fin 
+mov bx, offset msj 
+mov al, offset fin - offset msj 
+int 7
+fin: hlt 
+end
+
+6)
+hand_e equ 41h 
+hand_d equ 40h 
+pic equ 20h 
+id_hand equ 10
+int2 equ 26h
+org 1000h 
+cadena db "bianCaOsLaAAA"
+fin db ?
+org 40
+ip_hand dw rut_hand
+
+
+org 2000H
+cli 
+mov al, 0fbh; habilito int pot hand
+out pic +1, al 
+
+mov al, id_hand
+out int2, al 
+
+in al hand_e
+or al, 80h 
+out hand_e, al 
+mov bx, offset cadena 
+sti 
+
+loop cmp bx, offset finjz fin 
+fin: int 0
+end 

@@ -1,0 +1,5 @@
+Explicar por qué colocando un NOP antes de la suma, se soluciona el RAW de la instrucción ADD y como 
+consecuencia se elimina el WAR.
+
+Al poner el NOP tengo tiempo de que f2 este listo, eliminando la dependecia de datos (WAR y RAW)
+A0: termina en una sola etapa porque f1 y f2 están disponibles por encontrarse el NOP.Al terminar A= en una etapa no hay WAR con la instrucción que sigue. 

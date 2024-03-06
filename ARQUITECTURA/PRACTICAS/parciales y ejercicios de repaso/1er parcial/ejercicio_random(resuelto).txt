@@ -1,0 +1,92 @@
+;configurar timer cada 20 seg
+; configurar pb como salida
+; configurar pa como entrada
+
+timer_cont equ 10h
+timer_comp equ 11h 
+pa equ 30h
+pb equ 31h 
+ca equ 32h
+cb equ 33h 
+imr equ 21h 
+pic equ 20h 
+int1 equ 25h 
+
+id_timer equ 10 
+
+
+org 40 
+ip_timer dw rut_timer
+
+org 3000h 
+analizar_car:cmp dh, 01100100b ;100
+js es_menor 
+cmp dh, 10010111b ; 151
+jns es_mayor 
+
+es_menor: mov al, 1
+out pb, al 
+jmp fin
+es_mayor: mov al, 2
+out pb, al 
+jmp fin
+fin:ret
+;in al, pa
+    ;or al, 2
+    ;out pa, al 
+
+    
+    ;in al, pa
+    ;and al, 0fdh
+    ;out pa, al 
+;ret
+
+org 4000h
+rut_timer:push ax
+          push dx
+; leo lo que esta en pa
+in al, pa 
+mov dh, al 
+call analizar_car
+
+mov al, 0
+out timer_cont, al 
+
+mov al, pic
+out pic, al
+
+
+pop dx
+pop ax
+iret  
+org 2000h 
+
+cli 
+mov al, 0fdh
+out imr, al 
+
+mov al, id_timer
+out int1, al 
+
+
+
+
+mov al, 0ffh 
+out ca,al
+
+mov al, 0
+out cb, al
+
+mov al, 20
+out timer_comp, al
+
+mov al, 0
+out timer_cont, al 
+sti
+
+loop:jmp loop
+int 0
+end
+
+
+

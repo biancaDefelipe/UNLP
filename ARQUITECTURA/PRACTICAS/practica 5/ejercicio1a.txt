@@ -1,0 +1,1 @@
+16 ciclos / 7 instrucciones = 2.86 CPI

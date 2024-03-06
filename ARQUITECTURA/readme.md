@@ -6,7 +6,7 @@
   <ul>
    <li><p><a href= "https://github.com/biancaDefelipe/UNLP/blob/main/ARQUITECTURA/TEORIAS/Arquitectura%20de%20Computadoras%20A%C3%B1o%202007.pdf"> Repaso oc pila y subrutinas</a></p></li> 
   </ul>
-  <li><p><a>Interrupciones</a></p></li>
+  <li><p><a href= "https://github.com/biancaDefelipe/UNLP/blob/main/ARQUITECTURA/TEORIAS/Arq%20clase2%20Interrupciones.pdf">Interrupciones</a></p></li>
 </details>
 <details><summary> :memo: practica 1: Subrutinas y pasaje de parametros</summary> 
 <ul>

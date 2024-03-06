@@ -1,0 +1,95 @@
+1) 
+    2.4 CPI
+
+ 2) 
+    2 CPI
+
+
+ 3) Los atascos estructurales se producen cuando dos instrucciones quieren 
+    acceder al mismo recurso de hardware a la vez, lo que genera un atasco STR
+    Estos atascos se presentan al operar con valores en punto flotante, ya que
+    la suma, la multiplicación y la división en punto flotante toma mas ciclos 
+    que en numeros enteros. 
+
+ 4) Es una configuración del simulador que consiste en ejecutar siempre la 
+    la instrucción siguiente al salto. La finalidad del delay slot es aprovechar 
+    los ciclos de tiempo que se necesitan para calcular si se debe saltar o no 
+    y usarlos para realizar una tarea util. Para esto necesito reordenar el codigo 
+
+
+5)
+.data 
+nros: .word 2, 5, 9, 3, 7, 6
+
+.code 
+daddi r1, r1, 1
+
+6)
+Los atascos por dependencia de datos pueden ser 
+- RAW (READ AFTER WRITE): 
+    Se produce cuando se intenta leer un dato que todavia esta en la etapa de escritura 
+    Una solución es activar el forwarding lo que activa unos buffers que nos permiten obtener los datos una etapa antes
+    (si es una escriura en memoria lo obtengo despues de mem y si es en registro lo obtengo despues de ex)
+
+- WAW (WRITE AFTER WRITE):
+    Se produce cuando quiero escribir un dato que se esta escribiendo 
+    ej: mul.d f1, f1, f2
+        add.d f1, f3, f4
+- WAR (WRITE AFTER READ): 
+    Se produce cuando se esta escribiendo un dato que se esra leyendo por otra instrucción
+    Este atasco suele aparecer al operar con numeros en punto flotante ya que algunas operaciones en pf tardan mas que algunas operaciones 
+    con numeros enteros 
+
+    ej: l.d f1, num1(r0)
+       l.d f2, num2(r0)
+       add f3, f1, f2
+       mul.d f2,f2,f1
+
+       (se produce un atasco war ya que la instrucción add esta leyendo el f2 mientras la de mul lo intenta escribir )
+
+7)
+    -wb
+    -mem
+    -ex
+    -ex
+
+9)
+.data
+CONTROL:  .word32 0x10000
+DATA:     .word32 0x10008
+
+NUMERO:   .word 
+
+.text
+lwu $s6, CONTROL($0)
+lwu $s7, DATA($0)
+
+10)
+.data 
+a:    .double 1.3, 3.5, 5.8, 1.9, 2.7
+b:    .double 7.1, 3.4, 9.0, 1.0, 5.8
+c:    .double 2.3, 8.2, 0.5, 1.1, 2.9
+
+res:  .double 0.0, 0.0, 0.0, 0.0, 0.0
+
+
+.code
+daddi $s0, $0, 0
+daddi $s1, $0, 5
+; tomar una posicion del arreglo
+loop: 
+        ; guardar los tres valores
+        ld $a0, a($s0)
+        ld $a1, b($s0)
+        ld $a2, c($s0)
+        
+        ; llamar a la subrut 
+        jal calculo 
+
+
+
+
+calculo: 
+        ; f= (a+b)/c^2
+        ; copio bits 
+        mtc1 $a0, f1
