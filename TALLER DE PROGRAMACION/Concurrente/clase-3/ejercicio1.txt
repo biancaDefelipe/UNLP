@@ -1,0 +1,111 @@
+programa ejercicio1
+procesos 
+  proceso juntarFlores(ES flores: numero) 
+  comenzar
+    mientras(HayFlorEnLaEsquina) 
+      tomarFlor
+      flores:= flores +1
+  fin 
+  proceso dejarFlores(ES flores: numero) 
+  comenzar 
+    mientras (HayFlorEnLaBolsa) 
+      depositarFlor
+      flores:= flores -1
+  fin 
+  proceso juntarPapeles(ES papeles: numero) 
+  comenzar 
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      papeles:= papeles+1
+  fin 
+  proceso dejarPapeles(ES papeles: numero) 
+  comenzar 
+    mientras(HayPapelEnLaBolsa) 
+      depositarPapel
+      papeles:= papeles -1
+  fin
+    
+  
+
+areas
+  areaRobots: AreaC(1, 1, 10, 10) 
+  
+robots
+  robot florero
+  variables 
+    flores: numero 
+    avOri: numero
+    caOri: numero
+    avRandom: numero
+    caRandom: numero 
+  comenzar 
+    flores:=0
+    avOri:=PosAv
+    caOri:=PosCa
+    
+    repetir 5
+      Random (avRandom, 1, 5)
+      Random (caRandom, 6, 9)
+      BloquearEsquina(avRandom, caRandom)
+      Pos(avRandom, caRandom) 
+      juntarFlores(flores) 
+      Pos(avOri, caOri) 
+      LiberarEsquina(avRandom, caRandom) 
+    BloquearEsquina(10,10)
+    Pos(10,10)
+    dejarFlores(flores)
+    Pos(avOri, caOri)
+    LiberarEsquina(10,10) 
+  fin
+
+  robot papelero
+  variables 
+    papeles: numero 
+    avOri: numero
+    caOri: numero
+    avRandom: numero
+    caRandom: numero 
+  comenzar 
+    papeles:=0
+    avOri:=PosAv
+    caOri:=PosCa
+    
+    repetir 5
+      Random (avRandom, 1, 5)
+      Random (caRandom, 6, 9)
+      BloquearEsquina(avRandom, caRandom)
+      Pos(avRandom, caRandom) 
+      juntarPapeles(papeles) 
+      Pos(avOri, caOri) 
+      LiberarEsquina(avRandom, caRandom) 
+    BloquearEsquina(10,10)
+    Pos(10,10)
+    dejarPapeles(flores)
+    Pos(avOri, caOri)
+    LiberarEsquina(10,10) 
+  fin
+
+variables
+  f1: florero
+  f2: florero
+  p1: papelero
+  p2: papelero 
+
+comenzar
+  AsignarArea(f1, areaRobots) 
+
+  
+  AsignarArea(f2, areaRobots) 
+
+
+  AsignarArea(p1, areaRobots) 
+
+
+  AsignarArea(p2, areaRobots)   
+   
+
+  Iniciar(f1, 6, 10)
+  Iniciar(f2, 7, 10)
+  Iniciar(p1, 8, 10) 
+  Iniciar(p2, 9, 10)
+fin

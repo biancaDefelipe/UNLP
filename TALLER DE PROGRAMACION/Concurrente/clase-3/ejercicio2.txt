@@ -1,0 +1,146 @@
+programa ejercicio2
+
+procesos 
+  proceso juntarPapeles(ES papeles: numero)
+  comenzar 
+    mientras (HayPapelEnLaEsquina) 
+      tomarPapel
+      papeles:= papeles +1 
+  fin
+  
+  proceso juntarFlores(ES flores: numero)
+  comenzar 
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor
+      flores:= flores +1 
+  fin
+
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha 
+  fin
+
+  proceso escalonFlores(ES lado: numero; ES flores: numero) 
+  comenzar 
+    repetir lado
+      mover
+    juntarFlores(flores)
+    derecha
+    repetir lado
+      mover
+    izquierda
+  fin
+  proceso escalonPapeles (ES lado: numero; ES papeles: numero)
+  comenzar 
+    repetir lado
+      mover
+    juntarPapeles(papeles)
+    izquierda
+    repetir lado 
+      mover
+    derecha
+  fin
+areas
+  areaC: AreaC(1, 1, 100, 100)
+
+robots 
+  robot tipo1
+  variables
+    flores: numero
+    lado: numero 
+    quienSoy: numero
+    
+  comenzar 
+    flores:=0
+    RecibirMensaje(quienSoy, jefe)
+    lado:=5
+    repetir 4
+      escalonFlores(lado, flores)
+      lado:= lado -1
+    mover
+    juntarFlores(flores)
+    derecha
+    BloquearEsquina(50,50)
+    EnviarMensaje (quienSoy, jefe)
+    mover
+    repetir 2
+      derecha
+    mover
+    LiberarEsquina(50,50)
+    lado:=2
+    repetir 4
+      escalonFlores(lado, flores)
+      lado:= lado +1
+    Informar(flores)
+    
+  fin
+
+  robot tipo2
+  variables
+    papeles: numero
+    lado: numero 
+    quienSoy: numero
+    
+  comenzar 
+    papeles:=0
+    RecibirMensaje(quienSoy, jefe)
+    lado:=5
+    repetir 4
+      escalonPapeles(lado,papeles)
+      lado:= lado -1
+    mover
+ 
+    
+    juntarPapeles(papeles)
+    izquierda
+    BloquearEsquina(50,50)
+    mover
+    EnviarMensaje (quienSoy, jefe)
+    
+    repetir 2
+      derecha
+    mover
+    LiberarEsquina(50,50)
+    lado:=2
+    repetir 4
+      escalonPapeles(lado, papeles)
+      lado:= lado +1
+    Informar(papeles)
+    
+  fin
+    
+
+  robot tipoJefe
+  variables 
+    id: numero
+    ganador: numero
+  comenzar 
+    ganador:=0
+    EnviarMensaje (1, r1) 
+    EnviarMensaje (2, r2) 
+    repetir 2
+      RecibirMensaje (id, *)
+      si (ganador = 0)
+        si (id= 1) 
+          ganador:= 1
+        sino
+          ganador := 2
+    Informar (ganador)
+  fin
+
+
+
+variables
+  r1: tipo1
+  r2: tipo2
+  jefe: tipoJefe
+comenzar
+  AsignarArea(r1, areaC)
+  AsignarArea(r2, areaC)
+  AsignarArea(jefe, areaC)
+  
+  Iniciar (r1, 1, 1)
+  Iniciar (r2, 31, 1) 
+  Iniciar (jefe, 15, 1) 
+fin 

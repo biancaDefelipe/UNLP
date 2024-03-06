@@ -1,0 +1,112 @@
+programa ejercicio5
+procesos
+  proceso buscarPapel(E av: numero; E ca: numero; ES hayPapel: boolean)
+  comenzar 
+    Pos(11, 11)
+    si (HayPapelEnLaEsquina) 
+      tomarPapel
+    sino 
+      hayPapel:= F
+    Pos(av, ca)
+  fin
+  proceso actualizarMax (E id: numero; E pasos: numero; ES maxId: numero;  ES maxPasos: numero) 
+  comenzar 
+    si (pasos> maxPasos) 
+      maxPasos:= pasos
+      maxId:= id
+  fin 
+  
+  
+
+areas
+  areaR1: AreaP(4, 1,4, 100) 
+  areaR2: AreaP(6, 1, 6, 100) 
+  areaR3: AreaP(8, 1, 8, 100) 
+  areaR4: AreaP (10, 1, 10, 100) 
+  areaCoordinador: AreaP (1, 1, 1, 1)
+  fuente: AreaPC (11, 11, 11, 11) 
+  
+robots 
+  robot tipo1
+  variables 
+    pasos, quienSoy: numero
+    av, ca: numero
+    hayPapel: boolean
+  comenzar
+    pasos:=0
+    hayPapel:= V
+    
+    RecibirMensaje(quienSoy, coordinador) 
+    mientras((pasos <100) & (hayPapel))
+      BloquearEsquina(11, 11)
+      av:= PosAv
+      ca:= PosCa
+      buscarPapel(av, ca, hayPapel)
+      LiberarEsquina(11, 11) 
+      si (hayPapel= V) 
+        depositarPapel
+        mover
+        pasos:= pasos +1 
+     
+    EnviarMensaje (quienSoy, coordinador) 
+    EnviarMensaje(pasos, coordinador) 
+  fin 
+  
+  robot tipoCoordinador
+  variables 
+    id, pasos: numero
+    maxId, maxPasos: numero
+  comenzar 
+    maxId:=0
+    maxPasos:=0
+    EnviarMensaje (1, r1) 
+    EnviarMensaje(2, r2) 
+    EnviarMensaje (3, r3) 
+    EnviarMensaje (4, r4) 
+    
+    repetir 4
+      RecibirMensaje (id,*)
+      si (id=1) 
+        RecibirMensaje (pasos, r1) 
+        actualizarMax(id, pasos,maxId, maxPasos)
+      sino 
+        si (id= 2) 
+          RecibirMensaje(pasos, r2) 
+          actualizarMax(id, pasos,maxId, maxPasos)
+        sino 
+          si (id= 3) 
+            RecibirMensaje (pasos, r3)
+            actualizarMax(id, pasos,maxId, maxPasos)
+          sino 
+            si (id= 4)
+              RecibirMensaje (pasos, r4) 
+              actualizarMax(id, pasos,maxId, maxPasos)
+  
+    Informar(maxId)
+  fin 
+variables 
+  r1, r2, r3, r4: tipo1
+  coordinador: tipoCoordinador 
+comenzar 
+  
+  AsignarArea(r1, areaR1) 
+  AsignarArea(r1, fuente)
+
+  AsignarArea(r2, areaR2) 
+  AsignarArea(r2, fuente) 
+
+  AsignarArea(r3, areaR3) 
+  AsignarArea(r3, fuente)   
+
+  AsignarArea(r4, areaR4) 
+  AsignarArea(r4, fuente) 
+
+  AsignarArea(coordinador,areaCoordinador)
+  
+  Iniciar(r1, 4, 1) 
+  Iniciar(r2, 6, 1)
+  Iniciar(r3, 8, 1)
+  Iniciar (r4, 10, 1)
+  Iniciar(coordinador, 1, 1) 
+
+fin 

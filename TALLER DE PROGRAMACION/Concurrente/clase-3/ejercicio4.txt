@@ -1,0 +1,140 @@
+programa ejercicio4
+procesos
+  proceso moverFlor(ES sigo: boolean)  
+  comenzar
+    si(HayFlorEnLaEsquina) 
+      tomarFlor
+      sigo:= V
+    sino
+      sigo:= F
+  fin
+
+areas
+  area10: AreaPC(10,10,10,10) 
+  area11: AreaPC(11, 11,11,11) 
+  
+  areaR1: AreaP(9,9,9,9)
+  areaR2: AreaP(9,10,9,10)
+  areaR3: AreaP(9,11,9,11)
+  areaR4: AreaP(9,12,9,12)
+  areaCoordinador: AreaP(1, 1, 1, 1) 
+
+
+robots 
+
+  robot tipoFlorero
+  variables
+    avOri:numero
+    caOri: numero
+    quienSoy: numero
+    sigo:boolean
+  comenzar 
+    avOri:= PosAv
+    caOri:= PosCa
+    
+    RecibirMensaje(quienSoy, coordinador)
+    
+    sigo:=V
+    mientras (sigo = V)
+      BloquearEsquina(10,10)
+      Pos (10,10) 
+      moverFlor (sigo)
+      si(sigo=V)
+        si ~(HayFlorEnLaEsquina)
+          sigo:= F
+
+        BloquearEsquina(11, 11) 
+        Pos(11, 11) 
+        LiberarEsquina(10,10)
+        depositarFlor
+        Pos(avOri, caOri)
+        EnviarMensaje(quienSoy, coordinador)
+        EnviarMensaje(sigo, coordinador)
+
+        LiberarEsquina(11, 11) 
+      sino
+        Pos(avOri, caOri)
+        LiberarEsquina(10,10)    
+     
+      
+      
+  fin
+  
+  robot tipoCoordinador
+  variables 
+    flores: numero
+    sigo: boolean
+    ganador: numero
+    id: numero
+  comenzar
+    EnviarMensaje(1, r1) 
+    EnviarMensaje (2, r2) 
+    EnviarMensaje(3, r3) 
+    EnviarMensaje(4, r4)
+    
+    sigo:= V
+    mientras (sigo= V)
+  
+      RecibirMensaje(id, *) 
+      si (id= 1) 
+        RecibirMensaje(sigo, r1) 
+      sino
+        si (id= 2) 
+          RecibirMensaje (sigo, r2) 
+        sino
+          si (id= 3) 
+            RecibirMensaje (sigo, r3) 
+          sino 
+            si (id = 4) 
+              RecibirMensaje (sigo, r4) 
+      
+ 
+ 
+    
+    
+    
+   
+    ganador:= id 
+    Pos(11, 11) 
+    mientras(HayFlorEnLaEsquina) 
+      tomarFlor
+
+    Informar(ganador)
+
+  fin
+      
+
+variables 
+  r1, r2, r3, r4: tipoFlorero
+  coordinador: tipoCoordinador
+    
+
+comenzar
+  AsignarArea(r1, areaR1)
+  AsignarArea(r1, area10) 
+  AsignarArea(r1, area11) 
+
+  AsignarArea(r2, areaR2) 
+  AsignarArea(r2, area10)
+  AsignarArea(r2, area11) 
+
+  AsignarArea(r3, areaR3) 
+  AsignarArea(r3, area10) 
+  AsignarArea(r3, area11)  
+
+  AsignarArea(r4, areaR4)
+  AsignarArea(r4, area10)
+  AsignarArea(r4, area11)
+
+  AsignarArea(coordinador, areaCoordinador) 
+  AsignarArea(coordinador, area11)
+  
+
+  Iniciar(coordinador,1, 1) 
+  Iniciar(r1, 9, 9)
+  Iniciar(r2, 9, 10)
+  Iniciar(r3, 9, 11)
+  Iniciar(r4, 9,12)
+
+fin
+

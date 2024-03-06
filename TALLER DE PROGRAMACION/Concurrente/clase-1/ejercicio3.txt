@@ -1,0 +1,89 @@
+programa segundo
+procesos
+  proceso juntarFloresYPapeles(ES cantFlores: numero; ES cantPapeles: numero)
+  comenzar 
+    mientras(HayFlorEnLaEsquina) 
+      tomarFlor
+      cantFlores:= cantFlores + 1
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      cantPapeles:= cantPapeles + 1
+  fin
+  
+  proceso depositarFloresYPapeles(E cantFlores:numero; E cantPapeles: numero )
+  comenzar 
+    repetir cantFlores
+      depositarFlor
+    repetir cantPapeles 
+      depositarPapel
+  fin
+  
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+
+  proceso esquina (ES flores: numero; ES papeles: numero)
+  comenzar 
+    juntarFloresYPapeles(flores, papeles)
+    depositarFloresYPapeles(flores, papeles)
+  fin 
+
+  proceso lado (ES pasos: numero;ES flores: numero; ES papeles: numero)
+  comenzar 
+    repetir pasos
+      esquina (flores, papeles)
+      mover
+    
+  fin
+  proceso cumpleCondicion(ES cant: numero; E flores: numero; E papeles: numero )
+  comenzar 
+    si ((flores+1) = papeles)
+      cant:= cant +1
+  fin
+      
+  proceso escalon(ES cant: numero; ES pasos: numero)
+  variables 
+    flores: numero
+    papeles: numero
+  comenzar  
+    flores:=0
+    papeles:=0
+    lado(pasos, flores, papeles)
+    derecha
+    lado(pasos, flores, papeles)
+    izquierda
+    cumpleCondicion(cant, flores, papeles)
+  fin
+areas
+  ciudad: AreaC (12, 6, 32, 24)
+robots
+  robot tipo1
+  variables 
+    cant: numero 
+    pasos: numero 
+  comenzar 
+    pasos := 1 
+    repetir 4
+      escalon (cant, pasos)
+      Informar (cant)
+      pasos := pasos +1 
+  fin 
+    
+  
+variables
+  r1: tipo1
+  r2:tipo1
+  r3: tipo1
+
+comenzar
+  AsignarArea(r1, ciudad) 
+  AsignarArea (r2, ciudad)
+  AsignarArea (r3, ciudad)
+  
+  Iniciar (r1, 22, 6)
+  Iniciar (r2, 17, 10)
+  Iniciar (r3, 12, 14)
+
+fin

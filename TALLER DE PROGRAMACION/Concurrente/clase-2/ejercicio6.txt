@@ -1,0 +1,97 @@
+programa ejercicio6
+
+procesos 
+	proceso juntarFlores(ES flores: numero) 
+	comenzar 
+		mientras (HayFlorEnLaEsquina) 	
+			tomarFlor
+			flores:= flores +1
+	fin 
+	
+	proceso juntarPapeles(ES papeles: numero) 
+	comenzar
+		mientras(HayPapelEnLaEsquina) 
+			tomarPapel
+			papeles:= papeles +1
+	fin
+
+	proceso cuadranteFlores(E lado: numero; ES flores: numero)
+	comezar
+		juntarFlores(flores)
+		repetir 4
+			repetir lado
+				mover
+				juntarFlores(flores) 
+			
+			derecha
+	fin
+	proceso cuadrantePapeles( E lado: numero; ES papeles: numero) 
+	comenzar 
+		juntarPapeles(papeles) 
+		repetir 4
+			repetir lado
+				mover 
+				juntarPapeles(flores) 
+			derecha
+	fin 
+	proceso cuadranteFloresYPapeles(E lado: numero; ES papelesYflores: numero)
+	comenzar
+		juntarPapeles(papeles)
+		juntarFlores(flores) 
+		repetir 4
+			repetir lado
+				mover
+				juntarPapeles(papeles) 
+				juntarFlores(flores) 
+			derecha 
+	fin
+
+	proceso depositar (E id: numero; ES cant: numero) 
+	comenzar
+		si (id= 1) 
+			depositarFlor
+			cant:= cant -1
+		si (id =2)
+			si(HayFlorEnLaBolsa)
+				depositarFlor
+				cant:= cant-1
+			si (HayPapelEnLaBolsa)
+				depositarPapel
+				cant:= cant-1
+		si (id=3) 
+			depositarPapel
+			cant:= cant -1 
+	fin	
+			
+areas
+
+robots
+	robot tipo1
+	variables 
+		cant:numero
+		lado: numero
+		av: numero
+	comenzar 
+		cant:= 0
+		RecibirMensaje (quienSoy, fiscal) 
+		
+		
+		si (quienSoy= 1) 
+			cuadranteFlores(6, cant)
+		si( quienSoy = 2) 
+			cuadranteFloresYPapeles(10, cant) 
+		si (quienSoy= 3) 
+			cuadrantePapeles(7, cant)
+
+		EnviarMensaje(quienSoy, fiscal) 
+		RecibirMensaje(ca, fiscal) 	
+		Pos(1, ca)
+		derecha 
+		mientras ((PosAv <100) & (cant >0))
+			depositar(id, cant)
+			mover
+		si (cant >0)
+			depositar(cant) 
+	fin
+	robot tipo2
+		 

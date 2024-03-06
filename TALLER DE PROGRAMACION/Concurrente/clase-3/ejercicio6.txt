@@ -1,0 +1,174 @@
+programa ejercicio6
+
+procesos 
+  proceso juntarFlores(ES flores: numero) 
+  comenzar 
+    mientras (HayFlorEnLaEsquina)   
+      tomarFlor
+      flores:= flores +1
+  fin 
+  
+  proceso juntarPapeles(ES papeles: numero) 
+  comenzar
+    mientras(HayPapelEnLaEsquina) 
+      tomarPapel
+      papeles:= papeles +1
+  fin
+
+  proceso cuadranteFlores(E lado: numero; ES flores: numero)
+  variables
+    av: numero
+    ca: numero
+  comenzar
+    repetir 4
+      repetir lado
+        av:= PosAv
+        ca:= PosCa
+        juntarFlores(flores)
+        si ( (((av +1) = 5) & ((ca  +1) =8) | (((av +1) = 8) & ((ca +1) =5))   )
+          BloquearEsquina (PosAv+1, PosCa+1)
+          mover
+          juntarFlores(flores)
+          mover
+          LiberarEsquina(PosAv-1, PosCa-1)
+        sino
+          mover
+          juntarFlores(flores) 
+      
+      derecha
+  fin
+  proceso cuadrantePapeles( E lado: numero; ES papeles: numero) 
+  comenzar 
+    juntarPapeles(papeles) 
+    repetir 4
+      repetir lado
+        si( (((PosAv +1) =9) &((PosCa +1)=15) | ((PosAv+1=15) & (PosCa +1=9))))
+          BloquearEsquina(PosAv +1, PosCa +1)
+          mover
+          juntarPapeles(papeles)
+          mover
+          LiberarEsquina(PosAv -1, PosCa -1)
+        sino
+          mover 
+          juntarPapeles(papeles) 
+      derecha
+  fin 
+  proceso cuadranteFloresYPapeles(E lado: numero; ES papelesYflores: numero)
+  variables
+    av: numero
+    ca: numero
+  comenzar
+    
+    repetir 4
+      repetir lado
+        av:= PosAv
+        ca:= PosCa   
+        juntarPapeles(papelesYflores)
+        juntarFlores(papelesYflores) 
+        si( (((av +1) = 5) & (((ca +1)  =8)))  | ((((av +1) = 9)& ((ca+ 1)  =15))) | ((((av +1) =15)& ((ca +1)   =9))) | ((((av +1) =8) & ((ca +1)   =5)))   )
+          BloquearEsquina (PosAv+1, PosCa +1) 
+          mover
+          juntarFlores(papelesYflores)
+          juntarPapeles(papelesYflores) 
+          mover
+          LiberarEsquina(PosAv -1, PosCa -1) 
+        sino
+          mover
+          juntarPapeles( papelesYflores) 
+          juntarFlores( papelesYflores) 
+      derecha 
+  fin
+
+  proceso depositar (E id: numero; ES cant: numero) 
+  comenzar
+    si (id= 1) 
+      depositarFlor
+      cant:= cant -1
+    si (id =2)
+      si(HayFlorEnLaBolsa)
+        depositarFlor
+        cant:= cant-1
+      si (HayPapelEnLaBolsa)
+        depositarPapel
+        cant:= cant-1
+    si (id=3) 
+      depositarPapel
+      cant:= cant -1 
+  fin  
+      
+areas
+  areaRobots: AreaPC(2, 2, 16, 16)
+  areaFiscal:AreaP(1,1,1,1)
+  areaAvenidas: AreaPC(1,20, 100, 23)
+robots
+  robot tipo1
+  variables 
+    cant:numero
+    lado: numero
+    ca: numero
+    quienSoy:boolean
+  comenzar 
+    cant:= 0
+    RecibirMensaje (quienSoy, fiscal) 
+    
+    
+    si (quienSoy= 1) 
+      cuadranteFlores(6, cant)
+    si( quienSoy = 2) 
+      cuadranteFloresYPapeles(10, cant) 
+    si (quienSoy= 3) 
+      cuadrantePapeles(7, cant)
+
+    EnviarMensaje(quienSoy, fiscal) 
+    RecibirMensaje(ca, fiscal)   
+    Pos(1, ca)
+    derecha 
+    mientras ((PosAv <100) & (cant >0))
+      depositar(id, cant)
+      mover
+    si (cant >0)
+      depositar(cant) 
+  fin
+  robot tipo2
+  variables
+    id: numero
+    ca: numero
+  comenzar
+    ca:= 20
+    EnviarMensaje(1, r1) 
+    EnviarMensaje(2, r2)
+    EnviarMensaje (3, r3)
+    
+    repetir 3
+      RecibirMensaje (id, *)
+      si (id=1) 
+        EnviarMensaje(ca, r1) 
+      sino 
+        si(id=2) 
+          EnviarMensaje(ca, r2)
+        sino
+          si(id=3)
+            EnviarMensaje(ca, r3)
+      ca:= ca +1
+  fin
+
+
+variables
+  r1, r2, r3:tipo1
+  fiscal:tipo2
+comenzar
+  AsignarArea(r1, areaRobots) 
+  AsignarArea(r1, areaAvenidas)
+  AsignarArea(r2, areaRobots) 
+  AsignarArea(r2, areaAvenidas)
+  AsignarArea(r3, areaRobots) 
+  AsignarArea(r3, areaAvenidas)
+  AsignarArea(fiscal, areaFiscal)
+
+  Iniciar(r1, 2,2)
+  Iniciar (r2, 5, 5)
+  Iniciar(r3, 9,9)
+  Iniciar(fiscal, 1,1)
+fin
+      
+    

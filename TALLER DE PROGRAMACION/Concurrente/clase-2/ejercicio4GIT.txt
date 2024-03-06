@@ -1,0 +1,139 @@
+programa Ej4
+procesos
+  proceso juntarEsquina(ES papeles: numero; ES flores: numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      flores:= flores + 1
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      papeles:= papeles + 1
+  fin
+  proceso Maximo(E flores: numero; E papeles: numero; E id: numero; ES max: numero; ES idMax: numero)
+  comenzar
+    si((flores+papeles) > max)
+      max:= flores + papeles
+      idMax:= id
+  fin
+areas
+  cuadrante: AreaPC(25, 25, 75, 75)
+  area1: AreaP(25, 1, 25, 1)
+  area2: AreaP(30, 1, 30, 1)
+  area3: AreaP(35, 1, 35, 1)
+  area4: AreaP(40, 1, 40, 1)
+  fiscalia: AreaP(1, 1, 1, 1)
+robots
+  robot recolector
+  variables
+    avRand, caRand, av, ca: numero
+    flores, papeles, id: numero
+    victoria: numero
+  comenzar
+    id:= 0
+    victoria:= 0
+    av:= PosAv
+    ca:= PosCa
+    flores:= 0
+    papeles:= 0
+    repetir 10
+      RecibirMensaje(id, fisc)
+      si(id <> 0)
+        Random(avRand, 25, 75)
+        Random(caRand, 25, 75)
+        Pos(avRand, caRand)
+        juntarEsquina(flores, papeles)
+        EnviarMensaje(id, fisc)
+        EnviarMensaje(flores, fisc)
+        EnviarMensaje(papeles, fisc)
+        Pos(av, ca)
+    RecibirMensaje(victoria, fisc)
+    si(victoria = 1)
+      Pos(50, 50)
+  fin
+  robot fiscalizador
+  variables
+    idRand, flores, papeles, max, idMax: numero
+  comenzar
+    max:= -1
+    repetir 10
+      Random(idRand, 1, 4)
+      si(idRand = 1)
+        EnviarMensaje(idRand,r1)
+        EnviarMensaje(0, r2)
+        EnviarMensaje(0, r3)
+        EnviarMensaje(0, r4)
+        RecibirMensaje(idRand, r1)
+        RecibirMensaje(flores, r1)
+        RecibirMensaje(papeles, r1)
+      sino
+        si (idRand = 2)
+          EnviarMensaje(0, r1)
+          EnviarMensaje(idRand, r2)
+          EnviarMensaje(0, r3)
+          EnviarMensaje(0, r4)
+          RecibirMensaje(idRand, r2)
+          RecibirMensaje(flores, r2)
+          RecibirMensaje(papeles, r2)
+        sino
+          si(idRand = 3)
+            EnviarMensaje(0, r1)
+            EnviarMensaje(0, r2)
+            EnviarMensaje(idRand, r3)
+            EnviarMensaje(0, r4)
+            RecibirMensaje(idRand, r3)
+            RecibirMensaje(flores, r3)
+            RecibirMensaje(papeles, r3)
+          sino
+            EnviarMensaje(0, r1)
+            EnviarMensaje(0, r2)
+            EnviarMensaje(0, r3)
+            EnviarMensaje(idRand, r4)
+            RecibirMensaje(idRand, r4)
+            RecibirMensaje(flores, r4)
+            RecibirMensaje(papeles, r4)
+      Maximo(flores, papeles, idRand, max, idMax)
+    si(idMax = 1)
+      EnviarMensaje(1, r1)
+      EnviarMensaje(0, r2)
+      EnviarMensaje(0, r3)
+      EnviarMensaje(0, r4)
+    sino
+      si(idMax = 2)
+        EnviarMensaje(0, r1)
+        EnviarMensaje(1, r2)
+        EnviarMensaje(0, r3)
+        EnviarMensaje(0, r4)
+      sino
+        si(idMax = 3)
+          EnviarMensaje(0, r1)
+          EnviarMensaje(0, r2)
+          EnviarMensaje(1, r3)
+          EnviarMensaje(0, r4)
+        sino
+          EnviarMensaje(0, r1)
+          EnviarMensaje(0, r2)
+          EnviarMensaje(0, r3)
+          EnviarMensaje(1, r4)       
+  fin
+variables
+  fisc: fiscalizador
+  r1: recolector
+  r2: recolector
+  r3: recolector
+  r4: recolector
+comenzar
+  AsignarArea(fisc, fiscalia)
+  AsignarArea(r1, area1)
+  AsignarArea(r2, area2)
+  AsignarArea(r3, area3)
+  AsignarArea(r4, area4)
+  AsignarArea(r1, cuadrante)
+  AsignarArea(r2, cuadrante)
+  AsignarArea(r3, cuadrante)
+  AsignarArea(r4, cuadrante)
+  Iniciar(fisc, 1, 1)
+  Iniciar(r1, 25, 1)
+  Iniciar(r2, 30, 1)
+  Iniciar(r3, 35, 1)
+  Iniciar(r4, 40, 1)
+fin

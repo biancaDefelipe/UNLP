@@ -1,0 +1,119 @@
+programa ejercicio4
+procesos 
+  proceso juntarFlores(ES flores: numero)
+  comenzar 
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor 
+      flores := flores + 1 
+  fin 
+  
+  proceso juntarPapeles(ES papeles: numero) 
+  comenzar 
+    mientras(HayPapelEnLaEsquina) 
+      tomarPapel
+      papeles := papeles +1
+  fin 
+  
+  proceso recorrerAvenidaFlores( ES flores: numero) 
+  comenzar 
+    mientras (PosCa < 100)
+      juntarFlores(flores)
+      mover 
+      
+    juntarFlores(flores)
+  fin 
+
+  
+  proceso recorrerAvenidaPapeles(  ES papeles: numero) 
+  comenzar 
+    mientras (PosCa< 100)
+      juntarFlores(papeles)
+      mover
+  fin 
+
+  proceso recorrerArea1(ES av: numero; ES flores: numero)
+  comenzar
+    mientras (av < 25)
+      recorrerAvenidaFlores(flores)
+      av := av + 1
+      Pos (av, 1) 
+    recorrerAvenidaFlores(flores)
+  fin
+
+  proceso recorrerArea2(ES av: numero; ES papeles: numero)
+  comenzar
+    mientras (av < 50)
+      recorrerAvenidaPapeles(papeles)
+      av := av + 1
+      Pos (av, 1) 
+    recorrerAvenidaPapeles(papeles)
+  fin  
+
+  proceso recorrerArea3(ES av: numero; ES flores: numero)
+  comenzar
+    mientras (av < 75)
+      recorrerAvenidaFlores(flores)
+      av := av + 1
+      Pos (av, 1) 
+    recorrerAvenidaFlores(flores)
+  fin
+
+  proceso recorrerArea4(ES av: numero; ES papeles: numero)
+  comenzar
+    mientras (av < 100)
+      recorrerAvenidaPapeles(papeles)
+      av := av + 1
+      Pos (av, 1) 
+    recorrerAvenidaPapeles(papeles)
+  fin  
+areas
+
+  area1: AreaP(1, 1, 25, 100)
+  area2: AreaP(26, 1, 50, 100)
+  area3: AreaP(51, 1, 75, 100)
+  area4: AreaP(76, 1, 100, 100)
+
+robots 
+  robot rflorero
+  variables 
+    av: numero
+    flores: numero
+  comenzar 
+    av:= PosAv
+    flores:= 0
+    recorrerArea1(av, flores)
+    av:= 51
+    recorrerArea3(av, flores)
+  fin 
+  
+  robot rpapelero
+  variables 
+    av: numero
+    papeles: numero 
+  comenzar 
+    papeles:=0
+    av:= PosAv
+    recorrerArea2(av, papeles)
+    av:=76
+    recorrerArea4(av, papeles)
+  
+         
+
+  fin 
+  
+      
+variables 
+  florero: rflorero
+  papelero: rpapelero
+
+comenzar 
+  AsignarArea(florero, area1)
+  AsignarArea(florero, area3)
+
+  AsignarArea(papelero, area2)
+  AsignarArea(papelero, area4)
+
+  Iniciar (florero, 1, 1)
+  Iniciar (papelero, 26,1)
+
+fin 

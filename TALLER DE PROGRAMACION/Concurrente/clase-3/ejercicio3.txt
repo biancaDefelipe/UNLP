@@ -1,0 +1,183 @@
+programa ejercicio3
+procesos 
+  proceso limpiarEsquina(ES seguir: boolean; ES flores: numero)
+  comenzar 
+    si (HayFlorEnLaEsquina) 
+      tomarFlor
+      flores:= flores +1
+      seguir:= V
+    sino
+      seguir:= F
+  fin 
+  proceso actualizarMax(ES idGanador: numero; ES cantGanador: numero;E id: numero; E cant: numero)
+  comenzar
+    si (cant> cantGanador)
+      cantGanador:= cant
+      idGanador:= id
+  fin  
+areas
+  ciudad: AreaPC(2, 2, 10, 10) 
+  areaJefe: AreaP (1, 1, 1, 1) 
+  
+  areaR1: AreaP(2, 1, 2, 1) 
+  areaR2: AreaP(3, 1, 3, 1) 
+  areaR3: AreaP(4, 1, 4, 1) 
+  areaR4: AreaP(5, 1, 5, 1) 
+
+  
+    
+robots
+  robot limpiador
+  variables 
+    seguir: boolean
+    miTurno: boolean
+  
+    quienSoy: numero
+    avOri: numero
+    caOri: numero
+    avRandom: numero
+    caRandom: numero
+    flores: numero
+  comenzar
+    avOri:= PosAv
+    caOri:= PosCa
+    flores:=0
+    
+
+    RecibirMensaje(quienSoy, jefe)
+    RecibirMensaje (avRandom, jefe) 
+    RecibirMensaje(caRandom, jefe) 
+    
+    seguir:= V
+    mientras (seguir) 
+      RecibirMensaje(seguir, jefe) 
+      si(seguir= V)
+        BloquearEsquina(avRandom, caRandom) 
+        Pos(avRandom, caRandom)
+        limpiarEsquina(seguir, flores) 
+        Pos(avOri, caOri)
+        LiberarEsquina(avRandom, caRandom) 
+
+        EnviarMensaje(seguir, jefe)
+        EnviarMensaje (quienSoy, jefe) 
+    EnviarMensaje (quienSoy, jefe) 
+    EnviarMensaje(flores, jefe) 
+  fin
+
+  robot tipoJefe
+  variables 
+    avRandom: numero 
+    caRandom: numero
+    seguir: boolean
+    
+    id, idGanador, cant, cantGanador: numero
+
+      
+  comenzar
+    cantGanador:= 0 
+    idGanador:= 0
+    Random(avRandom, 2, 10)
+    Random (caRandom, 2, 10)
+    
+    
+    EnviarMensaje(1, r1)
+    EnviarMensaje(avRandom, r1) 
+    EnviarMensaje (caRandom, r1)
+
+    EnviarMensaje(2, r2)
+    EnviarMensaje(avRandom, r2) 
+    EnviarMensaje (caRandom, r2)
+
+    EnviarMensaje(3, r3)
+    EnviarMensaje(avRandom, r3) 
+    EnviarMensaje (caRandom, r3)
+
+    EnviarMensaje(4, r4)
+    EnviarMensaje(avRandom, r4) 
+    EnviarMensaje (caRandom, r4 )
+  
+    seguir:= V
+    mientras(seguir= V)
+      EnviarMensaje(seguir, r1)
+      EnviarMensaje(seguir, r2)
+      EnviarMensaje(seguir, r3) 
+      EnviarMensaje (seguir, r4) 
+      repetir 4
+        RecibirMensaje (seguir, *) 
+        RecibirMensaje (id, *)
+    si (id = 1)
+      EnviarMensaje(seguir, r2)
+      EnviarMensaje(seguir, r3) 
+      EnviarMensaje (seguir, r4) 
+    sino 
+      si (id=2)
+        EnviarMensaje(seguir, r1)
+        EnviarMensaje(seguir, r3) 
+        EnviarMensaje (seguir, r4) 
+      sino
+        si (id=3) 
+          EnviarMensaje(seguir, r1)
+          EnviarMensaje(seguir, r2) 
+          EnviarMensaje (seguir, r4) 
+        sino
+          si(id= 4) 
+            EnviarMensaje(seguir, r1)
+            EnviarMensaje(seguir, r2) 
+            EnviarMensaje (seguir, r3) 
+    repetir 4
+      RecibirMensaje(id, *)
+      si (id=1) 
+        RecibirMensaje(cant, r1)
+        actualizarMax(idGanador, cantGanador, id, cant)
+      sino 
+        si(id= 2)
+          RecibirMensaje(cant, r2) 
+          actualizarMax(idGanador, cantGanador, id, cant) 
+        sino 
+          si(id=3) 
+            RecibirMensaje (cant, r3) 
+            actualizarMax(idGanador, cantGanador, id, cant) 
+          sino
+            si(id=4) 
+              RecibirMensaje (cant, r4) 
+              actualizarMax(idGanador, cantGanador, id, cant) 
+    Informar(idGanador)
+  fin 
+
+
+variables 
+  r1: limpiador
+  r2: limpiador
+  r3: limpiador 
+  r4: limpiador
+  jefe: tipoJefe
+comenzar 
+  
+  AsignarArea(r1, ciudad)
+  AsignarArea(r1, areaR1)
+
+  AsignarArea(r2, ciudad)
+  AsignarArea(r2, areaR2) 
+
+  AsignarArea(r3, ciudad)
+  AsignarArea(r3, areaR3) 
+
+  AsignarArea(r4, ciudad)
+  AsignarArea(r4, areaR4)
+
+  AsignarArea(jefe, areaJefe)
+  
+  Iniciar(jefe, 1, 1) 
+  Iniciar (r1, 2, 1) 
+  Iniciar(r2, 3, 1) 
+  Iniciar (r3, 4, 1) 
+  Iniciar(r4, 5, 1) 
+
+fin
+
+
+
+
+
+
+ 

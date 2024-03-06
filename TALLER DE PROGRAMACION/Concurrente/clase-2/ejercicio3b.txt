@@ -1,0 +1,173 @@
+programa ejercicio3
+
+procesos
+  proceso juntarPapeles(ES papeles: numero)
+  comenzar 
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      papeles:= papeles + 1
+  fin 
+  
+  proceso juntarFlores(ES flores: numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      flores:= flores + 1
+  fin 
+  
+  proceso recorridoEquipoA(ES papeles: numero)
+  comenzar 
+  
+    repetir 9
+      juntarPapeles(papeles) 
+      mover
+    juntarPapeles (papeles) 
+  fin 
+
+  proceso recorridoEquipoB(ES flores: numero) 
+  comenzar 
+     
+    repetir 9
+      juntarFlores(flores)
+      mover
+    juntarFlores(flores)
+  fin 
+
+  
+areas
+  areaA: AreaPC (1, 1, 100, 1)
+  
+  areaB: AreaPC(1, 2, 100, 2)
+ 
+
+
+robots 
+  robot tipoA1
+  variables 
+    misPapeles: numero 
+    ca:numero
+    av: numero
+    termino: boolean
+  comenzar  
+    ca:= PosCa
+    av:= PosAv
+  
+    
+    derecha
+    repetir 4
+      misPapeles:= 0
+      recorridoEquipoA(misPapeles)
+      EnviarMensaje(misPapeles, a2)
+      av:= av + 20
+      Pos (av, ca)
+      RecibirMensaje (termino, a2)
+    misPapeles:= 0
+    recorridoEquipoA(misPapeles)
+    EnviarMensaje(misPapeles, a2)
+  fin
+  
+  robot tipoA2
+  variables
+    papelesTotales:numero
+    av: numero
+    ca: numero 
+    termine: boolean
+  comenzar
+    av:= PosAv
+    ca:= PosCa
+    termine:= V
+    derecha
+    repetir 4
+      RecibirMensaje(papelesTotales, a1)
+      recorridoEquipoA(papelesTotales) 
+      Informar(papelesTotales)
+      papelesTotales:= 0
+      av:= av + 20
+      Pos (av, ca)     
+      EnviarMensaje(termine, a1)
+    RecibirMensaje(papelesTotales, a1)
+    recorridoEquipoA(papelesTotales) 
+    Informar(papelesTotales)
+      
+       
+  fin 
+
+  robot tipoB1
+  variables
+    misFlores: numero
+    av: numero
+    ca: numero 
+    termino: boolean
+  comenzar 
+    ca:= PosCa
+    av:= PosAv
+    derecha
+    repetir 4
+      misFlores:= 0
+      recorridoEquipoB(misFlores)
+      EnviarMensaje(misFlores, b2)
+      av:= av + 20
+      Pos (av, ca)
+      RecibirMensaje(termino, b2)
+    misFlores:= 0
+    recorridoEquipoB(misFlores)
+    EnviarMensaje(misFlores, b2)
+ 
+  fin
+  
+  robot tipoB2
+  variables 
+    floresTotales: numero 
+    av: numero
+    ca: numero
+    termine: boolean
+  comenzar 
+    av:= PosAv
+    ca:= PosCa
+    termine:= V
+    derecha
+    repetir 4
+      RecibirMensaje(floresTotales, b1)
+      recorridoEquipoB(floresTotales) 
+      Informar(floresTotales)
+      floresTotales:= 0
+      av:= av + 20
+      Pos (av, ca)     
+      EnviarMensaje (termine, b1)
+    RecibirMensaje(floresTotales, b1)
+    recorridoEquipoB(floresTotales) 
+    Informar(floresTotales) 
+  fin 
+  
+variables 
+  a1: tipoA1
+  a2: tipoA2
+  
+  b1: tipoB1
+  b2: tipoB2
+
+comenzar 
+  AsignarArea(a1, areaA)
+  AsignarArea(a2, areaA)
+
+  AsignarArea(b1, areaB)
+  AsignarArea(b2, areaB) 
+
+  Iniciar(a1, 1, 1) 
+  Iniciar (a2, 11, 1) 
+
+  Iniciar(b1, 1, 2) 
+  Iniciar (b2, 11, 2)
+
+fin  
+    
+
+
+
+
+
+
+
+
+
+  

@@ -1,0 +1,72 @@
+programa ejercicio02
+
+procesos 
+  proceso juntarPapeles(ES papeles: numero) 
+  comenzar 
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+      papeles:= papeles +1
+  fin
+  proceso recorrido(ES papeles: numero)
+  variables
+    pasos:numero
+  comenzar 
+    pasos:=0
+    juntarPapeles(papeles)
+    mientras (pasos < 20)
+      mover
+      pasos:= pasos+1
+      juntarPapeles(papeles)
+  fin
+  proceso posicionar (E cant: numero)
+  comenzar 
+    repetir cant 
+      derecha 
+  fin 
+
+
+
+areas
+  ciudad: AreaPC (10,10, 30,30) 
+
+robots
+  robot robotAvenida
+  variables
+    papeles: numero
+  comenzar 
+    papeles:= 0  
+    si(PosAv=30)
+      posicionar(2)
+    recorrido(papeles)
+    Informar(papeles)
+  fin  
+  robot robotCalle
+  variables 
+    papeles: numero 
+  comenzar 
+    papeles:= 0
+    si (PosCa= 30) 
+      posicionar(1)
+    si(PosCa=10)
+      posicionar(3)
+    recorrido(papeles)
+    Informar(papeles)
+  fin
+
+
+variables 
+  r1: robotAvenida
+  r2: robotCalle
+  r3: robotAvenida
+  r4: robotCalle
+comenzar 
+  AsignarArea(r1, ciudad)
+  AsignarArea(r2, ciudad)
+  AsignarArea(r3, ciudad)
+  AsignarArea(r4, ciudad)
+
+  Iniciar(r1, 10,10)
+  Iniciar (r2, 10, 30)
+  Iniciar (r3, 30, 30) 
+  Iniciar (r4, 30, 10) 
+fin 

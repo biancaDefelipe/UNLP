@@ -1,0 +1,8 @@
+-la asignacion guarda la referencia al objeto en una variable.
+  En este caso la referencia a los objetos de tipo String se guarda en las variables saludo1 y saludo2
+
+-la comparacion con == y con != compara las referencias contenidas en lasa variables. En este caso la comparacion saludo1== saludo
+ será falsa ya que ambos apuntan a distindos objetos. 
+
+-el mensaje equals compara el contenido del objeto al que se le envia el mensaje con el contenido de otro objeto pasado como parametro
+  En caso de que los dos objetos tengan el mismo contendio devuelve true 
