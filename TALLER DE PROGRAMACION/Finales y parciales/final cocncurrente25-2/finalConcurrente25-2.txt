@@ -1,0 +1,125 @@
+programa 25deFebrero;
+procesos
+	proceso posicionarYjuntar(E av: numero; E ca: numero); 
+	comenzar 
+		Pos(50,50)
+		si (hayFlorEnLaEsquina) 
+			tomarFlor
+		Pos(av, ca)
+	fin
+
+areas
+	esquina: AreaPC (50,50,50,50)
+	areaR1: AreaP(2, 2, 2, 2)
+	areaR2: AreaP(3, 3, 3, 3)
+	areaR3: AreaP(4, 4, 4, 4)
+	areaJefe: AreaP(1, 1, 1, 1)
+
+robots
+	robot limpiador
+	variables 
+		quienSoy, av, ca: numero
+		miTurno: boolean
+	comenzar 
+		av:= PosAv
+		ca:= PosCa
+		RecibirMensaje(quienSoy, jefe)
+		repetir 5
+			RecibirMensaje(miTurno, jefe)
+			si (miTurno = V)
+				posicionarYjuntar(av, ca)
+	fin
+
+	robot robotJefe
+	variables
+		num: numero
+		ok:boolean
+	comenzar
+		EnviarMensaje (1, r1) 
+		EnviarMensaje(2, r2) 
+		EnviarMensaje (3, r3)
+		EnviarMensaje(4, r4)
+		
+		repetir 5
+			num:= Random(4)
+			si (num=1) 
+				EnviarMensaje(V, r1)
+				EnviarMensaje(F, r2)
+				EnviarMensaje (F, r3)
+				EnviarMensaje (F, r4) 
+				RecibirMensaje(listo, r1)
+			sino
+				si ( num = 2) 
+					EnviarMensaje(V, r2)
+					EnviarMensaje(F, r1)
+					EnviarMensaje (F, r3)
+					EnviarMensaje (F, r4)	
+					RecibirMensaje(listo, r2)
+				sino
+					si (num= 3) 
+						EnviarMensaje(V, r3)
+						EnviarMensaje(F, r1)
+						EnviarMensaje (F, r2)
+						EnviarMensaje (F, r4)
+						RecibirMensaje(listo, r3)			
+					sino
+						si (num=4)
+							EnviarMensaje(V, r4)
+							EnviarMensaje(F, r1)
+							EnviarMensaje (F, r2)
+							EnviarMensaje (F, r3)
+							RecibirMensaje(listo, r4)					
+
+	fin
+
+
+
+variables 
+	r1, r2, r3, r4: limpiador
+	jefe: robotJefe
+comenzar 
+	
+	AsignarArea(r1, areaR1)
+	AsignarArea(r2, areaR2)
+	AsignarArea(r3, areaR3)
+	AsignarArea(r4, areaR4) 
+	AsignarArea(jefe, areaJefe)
+	
+	AsignarArea(esquina, r1)
+	AsignarArea(esquina, r2)
+	AsignarArea(esquina, r3)
+	AsignarArea(esquina, r4)
+
+
+
+	Iniciar(r1, 2,2)
+	Iniciar(r2, 3, 3)
+	Iniciar(r3, 4, 4) 
+	Iniciar (r4, 5, 5) 
+	Iniciar (jefe, 1, 1)
+
+fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,128 @@
+programa finalConcurrente
+procesos
+  proceso juntarPapel(ES papeles: numero)
+  comenzar 
+    si (HayPapelEnLaEsquina) 
+      tomarPapel
+      papeles := papeles +1
+  fin
+
+  proceso recorridoCalle(ES papeles: numero) 
+  comenzar
+    mientras(PosAv< 50)
+      juntarPapel(papeles)
+      si((PosAv+1 ) = 3 ) | ((PosAv +1) =8)
+        BloquearEsquina (PosAv+1, PosCa)
+        mover
+        juntarPapel(papeles)
+        mover
+        LiberarEsquina(PosAv -1, PosCa)
+      sino
+        mover
+        
+  fin
+  proceso depositarPapeles(ES papeles: numero;  E av: numero; E ca: numero)
+  comenzar
+    mientras (papeles >0) 
+      BloquearEsquina(60,60)
+      Pos(60,60)
+      depositarPapel
+      papeles:= papeles -1
+      Pos(av, ca)
+      LiberarEsquina (60,60)
+  fin
+
+  proceso recorridoAvenida (ES encontre: boolean)
+  comenzar
+    mientras((PosCa< 100) & ~(encontre))
+      si (HayFlorEnLaEsquina)
+        encontre:= V
+      sino 
+        si ((PosCa+1 ) = 2 ) | ((PosCa +1) =6)| ((PosCa +1)=10)|((PosCa+1)=14)
+          BloquearEsquina (PosAv, PosCa+1)
+          mover
+          si (HayFlorEnLaEsquina)
+            encontre:= V          
+          mover
+          LiberarEsquina(PosAv, PosCa -1)
+        sino
+          mover
+        
+  fin
+
+
+areas
+  deposito: AreaPC(60,60,60,60)
+
+  areaRobots: AreaPC(3, 2, 50, 100)
+
+  areaCalle1: AreaP(2, 2, 2, 2)
+  areaCalle2: AreaP(2, 6, 2, 6)
+  areaCalle3: AreaP(2, 10, 2, 10)
+  areaCalle4: AreaP(2, 14, 2, 14)
+  
+  areaAvenida1: AreaP(3, 1, 3, 1)
+  areaAvenida2: AreaP(8, 1, 8, 1)
+  
+robots
+  robot calle
+  variables 
+    papeles, av, ca: numero
+  comenzar
+    papeles:=0
+    derecha
+    recorridoCalle(papeles)
+    av:=PosAv
+    ca:= PosCa
+    si (papeles>0)
+      depositarPapeles(papeles, av, ca)
+  fin
+
+  robot avenida
+  variables 
+    encontre: boolean
+  comenzar 
+    encontre:=F
+    recorridoAvenida(encontre)
+    si (HayFlorEnLaEsquina)
+      encontre:= V
+  fin    
+variables 
+  rcalle1, rcalle2, rcalle3, rcalle4: calle
+  ravenida1, ravenida2: avenida
+comenzar
+  AsignarArea(rcalle1, deposito)
+  AsignarArea(rcalle2, deposito)
+  AsignarArea(rcalle3, deposito)
+  AsignarArea(rcalle4, deposito)
+
+
+  AsignarArea(rcalle1, areaCalle1)
+  AsignarArea(rcalle2, areaCalle2)  
+  AsignarArea(rcalle3, areaCalle3)
+  AsignarArea(rcalle4, areaCalle4)
+
+  AsignarArea(ravenida1, areaAvenida1)
+  AsignarArea(ravenida2, areaAvenida2)
+
+  AsignarArea(rcalle1, areaRobots)
+  AsignarArea(rcalle2, areaRobots)
+  AsignarArea(rcalle3, areaRobots)
+  AsignarArea(rcalle4, areaRobots)
+  AsignarArea(ravenida1, areaRobots)
+  AsignarArea(ravenida2, areaRobots)
+
+
+  Iniciar(rcalle1, 2, 2)
+  Iniciar(rcalle2, 2, 6)
+  Iniciar(rcalle3, 2, 10)
+  Iniciar(rcalle4, 2, 14)
+  Iniciar(ravenida1, 3, 1)
+  Iniciar(ravenida2, 8, 1)
+
+
+fin
+
+
+
+

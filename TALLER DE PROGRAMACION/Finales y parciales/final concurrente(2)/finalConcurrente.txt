@@ -1,0 +1,132 @@
+programa parcialImperativo
+
+procesos
+  proceso juntarFlores(ES flores:numero) 
+  comenzar
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor
+      flores:= flores +1
+  fin
+  proceso juntarPapeles(ES papeles:numero) 
+  comenzar
+    mientras (HayPapelEnLaEsquina) 
+      tomarPapel
+      papeles:= papeles +1
+  fin 
+  proceso actualizarMaximos(ES idMax1: numero;  ES max1: numero; ES idMax2: numero; ES max2: numero;  E id: numero; E flores: numero)
+  comenzar 
+    si (flores> max1) 
+      idMax2:=idMax1
+      max2:= max1
+      idMax1:= id
+      max1:= flores
+    sino
+      si (flores> max2)
+        idMax2:= id 
+        max2:=flores
+  fin 
+  proceso recorridoFlores(ES flores: numero)
+  comenzar
+    mientras (PosCa< 10) 
+      juntarFlores(flores)
+      mover
+    juntarFlores(flores)
+  fin  
+  proceso recorridoPapeles(ES papeles: numero)
+  comenzar
+    mientras (PosCa< 10) 
+      juntarPapeles(papeles)
+      mover
+    juntarPapeles(papeles)
+  fin
+
+areas
+  areaR1: AreaP(5, 1, 5, 10)
+  areaR2: AreaP(6, 1, 6, 10) 
+  areaR3: AreaP(7, 1, 7, 10)
+  areaCoordinador: AreaP(1, 1, 1, 1)  
+
+robots
+  robot recolector
+  variables 
+    quienSoy, flores, papeles, av, ca: numero
+    sigo: boolean
+  comenzar 
+    flores:=0
+    
+    RecibirMensaje(quienSoy, coordinador) 
+    av:= PosAv
+    ca:= PosCa
+    recorridoFlores (flores)
+    EnviarMensaje(quienSoy, coordinador) 
+    EnviarMensaje ( flores,  coordinador) 
+    RecibirMensaje (sigo, coordinador) 
+    si (sigo = V)
+      Pos(av, ca)
+      papeles:=0
+      recorridoPapeles(papeles)
+      EnviarMensaje(quienSoy, coordinador)
+  fin
+  robot coordinador
+  variables 
+    id, flores, idMax1, idMax2, max1, max2, ganador: numero 
+    
+  comenzar
+    EnviarMensaje (1, r1) 
+    EnviarMensaje (2, r2) 
+    EnviarMensaje(3, r3) 
+    idMax1:=0
+    max1:=0
+    repetir 3
+      RecibirMensaje (id, *) 
+      si (id = 1) 
+        RecibirMensaje (flores, r1) 
+        actualizarMaximos(idMax1,  max1, idMax2, max2,id, flores)
+      sino 
+        si (id = 2)
+          RecibirMensaje (flores, r2) 
+          actualizarMaximos(idMax1,  max1, idMax2, max2,id, flores)
+        sino 
+          si (id = 3)
+            RecibirMensaje (flores, r3) 
+            actualizarMaximos(idMax1,  max1, idMax2, max2,id, flores)
+         
+    si( (idMax1 <> 1) & (idMax2<>1))
+      EnviarMensaje(F, r1) 
+      EnviarMensaje(V, r2)
+      EnviarMensaje(V, r3)
+    sino
+      si ((idMax1 <> 2) & (idMax2 <> 2) )
+        EnviarMensaje (F, r2) 
+        EnviarMensaje(V, r1) 
+        EnviarMensaje (V, r3) 
+      sino 
+        si ( (idMax1<>3) & (idMax2 <>3))
+          EnviarMensaje (F, r3) 
+          EnviarMensaje(V, r1) 
+          EnviarMensaje (V, r2) 
+    id:=0
+    repetir 2
+      RecibirMensaje (id, *)
+      si (id=0)
+        ganador:=id
+        
+    Informar(ganador)
+  fin
+
+variables
+  r1, r2, r3: recolector
+  coordinador: coordinador
+comenzar 
+  AsignarArea(r1, areaR1)
+  AsignarArea(r2, areaR2) 
+  AsignarArea(r3, areaR3) 
+  AsignarArea(coordinador, areaCoordinador) 
+
+  Iniciar (r1, 5, 1) 
+  Iniciar (r2, 6, 1) 
+  Iniciar (r3, 7, 1) 
+  Iniciar(coordinador, 1,1)
+
+  
+fin

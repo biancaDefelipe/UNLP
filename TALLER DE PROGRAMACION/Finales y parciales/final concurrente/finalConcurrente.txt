@@ -1,0 +1,92 @@
+programa finalConcurrente
+procesos
+  proceso juntarPapeles(ES papeles:numero; ES seguir: boolean; E av: numero; E ca: numero)
+  comenzar 
+    BloquearEsquina(5, 5)
+    Pos(5, 5)
+    mientras ((HayPapelEnLaEsquina) & (papeles <10) )
+      tomarPapel
+      papeles:= papeles + 1
+    si ~(HayPapelEnLaEsquina)
+      seguir:= F
+    Pos(av, ca)
+    LiberarEsquina (5, 5)
+  fin
+
+
+  proceso depositarPapeles (ES papeles: numero; E av: numero;  E ca: numero)
+  comenzar 
+    BloquearEsquina(6, 6)
+    Pos(6, 6) 
+    mientras (papeles >0)
+      depositarPapel
+      papeles := papeles -1
+    Pos(av, ca)
+    LiberarEsquina(6, 6)
+  fin
+
+
+areas
+  areaCompartida: AreaPC(5,5, 6, 6) 
+  areaR1: AreaP(1, 1, 1, 1)
+  areaR2: AreaP(2, 2, 2, 2)
+
+robots
+  robot recolector1
+  variables 
+    seguir:boolean
+    av,ca, papeles: numero
+  comenzar
+    av:= PosAv
+    ca:= PosCa
+    papeles:= 0
+    seguir:= V
+    juntarPapeles(papeles,seguir,av,ca)
+    EnviarMensaje(seguir, r2)   
+    depositarPapeles(papeles, av, ca)
+    RecibirMensaje(seguir, r2)
+    mientras (seguir) 
+      juntarPapeles(papeles,seguir,av,ca)
+      EnviarMensaje(seguir, r2)   
+      depositarPapeles(papeles, av, ca)
+      RecibirMensaje(seguir, r2)
+      
+      
+  fin 
+  robot recolector2
+  variables 
+    seguir:boolean
+    av,ca, papeles: numero
+  comenzar
+    av:= PosAv
+    ca:= PosCa
+    papeles:= 0
+    RecibirMensaje(seguir, r1)
+    mientras (seguir) 
+      juntarPapeles(papeles,seguir,av,ca)
+      EnviarMensaje(seguir, r1)
+      depositarPapeles(papeles, av, ca)
+      si (seguir= V)
+        RecibirMensaje(seguir, r1)
+      
+  fin 
+
+      
+    
+variables
+  r1: recolector1
+  r2: recolector2
+
+comenzar
+
+  AsignarArea(r1, areaCompartida)
+  AsignarArea(r2, areaCompartida)
+  
+  AsignarArea(r1, areaR1) 
+  AsignarArea(r2, areaR2)
+
+  Iniciar(r1, 1, 1)
+  Iniciar(r2, 2, 2)
+
+
+fin
