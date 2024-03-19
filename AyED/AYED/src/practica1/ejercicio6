@@ -1,0 +1,44 @@
+a)¿En qué casos ArrayList ofrece un mejor rendimiento que LinkedList?
+	- Acceso aleatorio eficiente: En ArrayList el tiempo de acceso es de O(1) ya que accedo 
+  	  al elementento con el indice de posicion mientras que en LinkedList tengo que recorrer
+  	  todos los nodos hasta encontrarlo o hasta llegar al final, lo que resulta en un tiempo 
+  	  de acceso de O(n).
+ 	- Rapida iteración: En ArrayList los elementos se almacenan en posiciones contiguas de 
+ 	  memoria lo que permite un acceso mas eficiente durante la iteracion, mientras que en 
+ 	  LinkedList como cada elemento esta vinculado a su sucesor, puedo tener mayor numero
+ 	  de referencias y saltos durante la iteración
+ 	- Uso eficiente de la memoria: ArrayList solo almacena una matriz contigua de referncias 
+ 	  a objetos mientras que LinkedList ademas de los objetos almacena referencias a los nodos 
+ 	- Operaciones de acceso al final: ArrayList brinda operaciones como add() y remove() para 
+ 	  interactuar con el final de la lista lo que resulta en un tiempo de ejecucion de O(1).
+ 	  Por el contrario LinkedList tiene una complejidad de tiempo de O(n) dado que necesito 
+ 	  recorrer toda la lista para llegar al final de la misma. 
+ 	  
+ b)¿Cuándo LinkedList puede ser más eficiente que ArrayList?
+ 	-Insertar y eliminar elementos del medio de la lista con frecuencia: Ya que LinkedList no
+ 	 requiere desplazar elementos en memoria para realizar estas operaciones (solo tengo que 
+ 	 modificar los enlaces de los nodos). Por el contrario, en ArrayList tengo que desplazar 
+ 	 todos los elementos hacia la derecha o izquierda lo que resulta en un tiempo de ejecucion
+ 	 de O(n).
+ 	-Memoria fragmentada
+ 
+ c)¿Qué diferencia encuentra en el uso de la memoria en ArrayList y LinkedList?
+ 	ArrayList usa un arreglo dinamico que se expande automaticamente. El tamaño del arreglo
+ 	suele ser mayor al número de elementos reales para evitar una expansión frecuente, por lo 
+ 	cual necesita espacio adicional. Además, como los elementos se tienen que alamcenar en 
+ 	bloques de memoria contigua suelen ocupar mas espacio. 
+ 	En LinkedList no necesitamos espacio adicional pero cada nodo tiene una sobrecarg
+ 	de memoria adicional por las referencias a los nodos siguientes. 
+ d)¿En qué casos sería preferible usar un ArrayList o un LinkedList?
+ 	Si requerimos acceder a elementos aleatorios de la lista o iterar sobre ellos de manera
+ 	frecuente o si no vamos a realizar muchas modificaciones sobre la lista (inserciones/ 
+ 	eliminaciones) y es muy importante el uso eficiente de la memoria nos conviene 
+ 	usar ArrayList. 
+ 	En camio, si la lista va a sufrir muchas modificaciones nos conviene usar LinkedList
+ 	dado que acá las op. de insercion y eliminacion tienen un tiempo de ejecucion constante 
+ 	y en ArrayList pueden llegar a tener un tiempo de ejecucion lineal de O(n) por los 
+ 	desplazamientos. Por esta razon las LinkedList también son mas utiles para implementar 
+ 	colas o pilas dado a la facilidad que nos otorga para eliminar al principio o al final de
+ 	la lista. 
+  
+ 	-

@@ -1,0 +1,18 @@
+001 175000 samsung
+6 10 64gbROM,4gbRAM
+galaxyA13
+010 209000 xiaomi
+20 10 128gbROM,8gbRAM
+redmiNote12
+030 255000 motorola
+10 10 25664gbROM8gbRAM
+motoEdge
+015 139999 samsung
+7 5 64gbROM4gbRAM
+otroSamgung
+011 27000 nokia
+3 5 512mb
+nokia1100
+109 1000000 apple
+11 10 256gb
+iphone
