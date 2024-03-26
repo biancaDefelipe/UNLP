@@ -76,6 +76,6 @@ public class ejercicio5 {
 		System.out.println("minimo:"+dat2.getMin());
 		System.out.println("promedio:"+dat2.getProm() );
 		
-		//
+		/*correcion: el inciso b deberia implementarse como el c y el c se hace con una variable global (mala practica)*/
 	}
 }

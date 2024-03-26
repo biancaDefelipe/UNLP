@@ -38,9 +38,11 @@ public class Dato {
 		for (int i=0; i <numeros.length; i++) {
 			if (numeros[i]> max) {
 				this.max= numeros[i]; 
+				max= numeros[i]; 
 			}
 			if (numeros[i]<min) {
 				this.min= numeros[i]; 
+				min= numeros[i];
 			}
 			total= total+ numeros[i]; 
 		}
