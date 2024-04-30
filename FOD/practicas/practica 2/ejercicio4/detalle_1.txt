@@ -1,0 +1,21 @@
+1900 967000 1000000 Buenos Aires
+1824 200000 250000 Buenos Aires
+3100 425000 500000 Entre Rios
+3150 10000 20000 Entre Rios
+3206 6000 10000 Entre Rios
+8407 170000 200000 Neuquen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

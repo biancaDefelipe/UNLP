@@ -1,0 +1,8 @@
+codigo: 13 stock: 13 precio unitario: 130000.00
+descripcion: cardigan de taylor swift tipo: cardigan colores: blanco
+codigo: 101 stock: 8 precio unitario: 10000.00
+descripcion: remera tipo: remera de algodon colores: negro/blanco/azul/gris/verde musgco
+codigo: 99 stock: 4 precio unitario: 34000.00
+descripcion: calza deportiva tipo: calza colores: lila/ negro/ gris/ verde agua
+codigo: 90 stock: 2 precio unitario: 44000.00
+descripcion: buzo tipo: buzo colores: celeste/ gris/ negro/ blanco/ lila/ verde agua

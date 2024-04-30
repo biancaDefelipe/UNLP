@@ -1,0 +1,40 @@
+---------------------------------------------------------------------------
+||anio de lanzamiento  1 || version de kernel4.18 || cantidad de desarrolladores1
+|| nombre 2004|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  1993 || version de kernel5.12 || cantidad de desarrolladores1
+|| nombre Debian|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  2004 || version de kernel6.15 || cantidad de desarrolladores1
+|| nombre Ubuntu|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  2006 || version de kernel2.13 || cantidad de desarrolladores4
+|| nombre Linux Mint|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  1993 || version de kernel6.24 || cantidad de desarrolladores2
+|| nombre Slackware|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  2011 || version de kernel7.09 || cantidad de desarrolladores2
+|| nombre Manjaro Linux|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  2009 || version de kernel7.12 || cantidad de desarrolladores2
+|| nombre Zorin Os|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  2003 || version de kernel8.16 || cantidad de desarrolladores1
+|| nombre PuppyLinux|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  2002 || version de kernel3.13 || cantidad de desarrolladores4
+|| nombre ArchLinux|| descripcion-
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+||anio de lanzamiento  2013 || version de kernel2.18 || cantidad de desarrolladores1
+|| nombre KaliLinux|| descripcion-
+---------------------------------------------------------------------------
