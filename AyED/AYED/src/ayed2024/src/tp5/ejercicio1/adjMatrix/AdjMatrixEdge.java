@@ -1,0 +1,27 @@
+package ayed2024.src.tp5.ejercicio1.adjMatrix;
+
+import ayed2024.src.tp5.ejercicio1.Edge;
+import ayed2024.src.tp5.ejercicio1.Vertex;
+
+public class AdjMatrixEdge<T> implements Edge<T> {
+	private Vertex<T> target;
+	private int weight;
+	
+	/**
+	 * Constructor de las aristas.  Solo se crean desde el grafo.
+	 */
+	AdjMatrixEdge(Vertex<T> target, int weight){
+		this.target = target;
+		this.weight = weight;
+	}
+	
+	@Override
+	public Vertex<T> getTarget() {
+		return target;
+	}
+
+	@Override
+	public int getWeight() {
+		return weight;
+	}
+}

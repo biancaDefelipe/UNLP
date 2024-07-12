@@ -1,0 +1,18 @@
+Un poderoso e inteligente virus de computadora infecta cualquier computadora 
+en x minutos, logrando infectar toda la red de una empresa con cientos de 
+computadoras. Dado un grafo que representa las conexiones entre las 
+computadoras de la empresa, y una computadora ya infectada, escriba un 
+programa en Java que permita determinar el tiempo que demora el virus en 
+infectar el resto de las computadoras. Asuma que todas las computadoras 
+pueden ser infectadas, no todas las computadoras tienen conexión directa entre 
+sí, y un mismo virus puede infectar un grupo de computadoras al mismo tiempo 
+sin importar la cantidad.
+
+
+Dada una red de computadoras de una empresa y una computadora x se desea determinar a que distacia de separacion 
+de la computadora x se encuentran las
+Se desea encontrar la computadora que tarda menos en conectarse. 
+
+
+Dado un grafo que representa las conexiones entre las computadoras de la empresa, y una computadora infectada, 
+escriba un programa que permita determinar a que distancia de la computadora infectada se encuentra el 

@@ -58,6 +58,8 @@ public class GeneralTree<T>{
 		if (this.hasChildren())
 			children.remove(child);
 	}
+	//CORRECCION-> hacerlo iterativo!
+	/*
 	private int alturaRecursivo(){
 		if( this.isLeaf()){return 0; }
 		else { 
@@ -69,10 +71,39 @@ public class GeneralTree<T>{
 			max++;
 			return max; 	
 		}
-	}
+	}*/
+	/*
 	public int altura() {	 
-		/* devuelve la altura del árbol, es decir, la longitud del camino más largo desde el nodo raíz hasta una hoja.*/
+		//devuelve la altura del árbol, es decir, la longitud del camino más largo desde el nodo raíz hasta una hoja.
 		if (! this.isEmpty()) {return alturaRecursivo(); }
+		return 0;
+	}*/
+	public int altura() throws Exception {
+		if (this.isEmpty()) {return 0; }
+		else {
+			if (!this.isLeaf()) {
+				int nivel=0; 
+				GeneralTree<T> aux= new GeneralTree<T>(); 
+				Queue<GeneralTree<T>> cola= new Queue <GeneralTree<T>>(); 
+				cola.enqueue(this);
+				cola.enqueue(null);
+				while (!cola.isEmpty()) {
+					aux= cola.dequeue(); 
+					if (aux!= null) {
+						for (GeneralTree<T>hijo: aux.getChildren()) {
+							cola.enqueue(hijo);
+						}
+					}
+					else {
+						if (!cola.isEmpty()) {
+							nivel++; 
+							cola.enqueue(null);
+					}
+				}
+				}return nivel; 
+				
+			}
+		}
 		return 0;
 	}
 	

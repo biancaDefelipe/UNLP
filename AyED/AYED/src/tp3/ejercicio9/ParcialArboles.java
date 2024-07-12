@@ -1,50 +1,51 @@
 package tp3.ejercicio9;
 import tp3.GeneralTree;
-public class ParcialArboles {
-	GeneralTree<Integer>arbol;
+import tp1.ejercicio8.*;
 
-	public ParcialArboles(GeneralTree<Integer> arbol) {
-		super();
-		this.arbol = arbol;
-	} 
-	
-	private static int hijoMasPequeño(GeneralTree<Integer>arb, boolean seguir) {
-		if (seguir) {
-			if( arb.isLeaf()){return arb.getData(); }
-			else {
-				int min = Integer.MAX_VALUE; 
-				for (GeneralTree<Integer>hijo: arb.getChildren()) {
-					int act= hijoMasPequeño(hijo, seguir);
-					min= Math.min(act, min); 
-					
-				}
-				if (arb.getData().equals(min)) {
-					return min; 
-				}
-				else {
-					seguir = false; 
-					return -1; 
-				}
-			}
-	}else {
-		return -1; 
-	}
-}
-	private static void esDeSeleccion(GeneralTree<Integer>arb, boolean seguir) {
-		if (! arb.isLeaf()) {
-			hijoMasPequeño(arb, seguir); 
-		}
-	}
-	
-	public static boolean esDeSeleccion(GeneralTree<Integer>arb) {
-		if (arb.isEmpty()) {
-			return false; 
-		}
-		else { 
-			boolean seguir= true; 
-			esDeSeleccion(arb, seguir); 
-			return seguir; 
-			}
+public class ParcialArboles {
+
+public class ParcialArboles9 {
+
+	public static boolean esDeSeleccion(GeneralTree<Integer> arbol) throws Exception {
 		
+		Queue<GeneralTree<Integer>> c = new Queue<GeneralTree<Integer>>();
+
+		boolean ok = true;
+		
+		// Caso arbol vacío.
+		if((!arbol.isEmpty()) && (!arbol.isLeaf())) {
+			
+			c.enqueue(arbol);
+			
+			while((!c.isEmpty()) && ok) {
+				
+				GeneralTree<Integer> elem = c.dequeue();
+					
+				int min = Integer.MAX_VALUE; // Inicializo en un valor muy grande y positivo.
+				
+				// Foreach hijo en la lista de hijos del nodo que desencolé...
+				for(GeneralTree<Integer> hijo : elem.getChildren()){
+				
+					// Lo encolo solo si no es hoja, porque si es hoja, cuando me toque desencolarlo y
+					// procesarlo, no entrará a este for, ni al if que sigue... o sea, no hace nada.
+					// Sería sacarlo para que no haga nada. Entonces así evito ese tiempo perdido.
+					if(!hijo.isLeaf()) {
+						
+						c.enqueue(hijo); // Encolo el hijo.
+					}
+					
+					min = Math.min(min,  hijo.getData()); // Dame el minimo entre minimo y el valor del hijo actual.
+				}
+				
+				if((!elem.isLeaf()) && (min != elem.getData())) {
+				
+					ok = false;
+				}
+			}
+		}
+		
+		return ok;
 	}
 }
+}
+

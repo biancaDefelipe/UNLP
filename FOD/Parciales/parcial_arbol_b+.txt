@@ -1,0 +1,38 @@
+arbol b+   M=4   politica de resolución: derecha
+
+			4:0(240) 1 (403) 2 (500) 3 
+0:(3)(45)(69)1->  1:(240)(255)(360) 2 ->  2: (409)(420) 3->  3: (550)
+
+-------------------------------------------------------------------------------
++58
+L4, L0, E0, E5, E4, E6, E7
+overflow en nodo 0, división del nodo y promoción de la copia de la clave 58 a la raiz. Propagacion del overflow a la raiz
+Division del nodo y promocion de la copia 409 a la nueva raiz. Aumento en la altura del árbol 
+
+					7:4(403)6
+			4:0(58)5(240)1               6: 2 (500) 3    
+0:(3)(45)5-> 5:(58)(69)1->  1:(240)(255)(360) 2 ->  2: (409)(420) 3->  3: (550)
+
+-------------------------------------------------------------------------------
+-403
+L7, L6, L2
+llego a una hoja pero no encuentro la clave (no existe). 
+
+
+-------------------------------------------------------------------------------
++260
+L7, L4, L1, E8, E4
+overflow en nodo 1, division del nodo y promocion de la copia de la clave 260 al padre(nodo 4)
+
+					7:4(403)6
+			4:0(58)5(240)1(260)8             6: 2 (500) 3    
+0:(3)(45)5-> 5:(58)(69)1->  1:(240)(255)8 -> 8:(260)(360) 2 ->  2: (409)(420) 3->  3: (550)
+
+-------------------------------------------------------------------------------
+-550
+L7, L6, L3,L2, E2, 
+underflow en nodo 3. No tiene hermano derecho pero por ser extremo puedo intentar distribuir con hermano adyacente izquierdo
+(nodo 2)
+					7:4(403)6
+			4:0(58)5(240)1(260)8             6: 2 (420) 3    
+0:(3)(45)5-> 5:(58)(69)1->  1:(240)(255)8 -> 8:(260)(360) 2 ->  2: (409) 3->  3: (420)
