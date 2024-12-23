@@ -1,0 +1,25 @@
+POSIBLES REGLAS DE NEGOCIO: 
+ 
+COMO IDENTIFICAR RN? 
+- Particularidades del dominio del sist. (rangos de edades y fechas, vencimientos y recargos de dinero, limitaciones en la carga de datos)  
+- Son necesarias para que la historia de usuario sea exitosa
+
+Ejemplos de RN (pueden no ser rn, depende el enunciado):
+	- mail/codigo/nombre que no puede repetirse al cargar un usuario, item 
+	- el precio de un obj se debe cargar en x moneda
+	- monto de un prestamo no puede superar x cantidad 
+	- La persona a contratar menos de 3 contratos
+	- recargos en un pago por vencimientos/no ser socios, etc
+	- bloqueos de cuentas por exceder cantidad limite de inicio de sesión fallidos 
+	- condiciones que debe cumplir una contraseña para ser valida (mas de x digitos, tener caracteres especiales, etc)
+	- ser mayor de edad para registrarse 
+	- No adeudar x cosa
+	- Tener x cantidad de cuotas/ monto abonado 
+	- cantidad maxima de prestamos/solicitudes debe ser menor o igual a x cantidad
+	- cantidad minima para efectuar una reservar/compra debe ser mayor o igual a x cantidad
+
+
+Ejemplos que NO son RN: 
+	- Que la conexión con el servidor sea exitosa
+	- Que en un inicio de sesión el usuario este registrado 
+	- Que el numero de una tarjeta sea existente 
