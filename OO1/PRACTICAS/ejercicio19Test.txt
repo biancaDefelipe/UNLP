@@ -1,0 +1,66 @@
+Envio: 
+	metodo estaEnElPeriodo(inicio:Date, fin:Date):boolean  con: 
+		una fecha de inicio que sea anterior a la fecha de despacho del envio
+		una fecha de inicio que sea igual a la fecha de despacho del envio
+		una fecha de fin que sea igual a la fecha de despacho del envio
+		una fecha de fin que sea posterior a la fecha de despacho del envio
+
+EnvioInterUrbano
+	metodo costoDistancia() con: 
+		una distancia menor a 100
+		una distancia igual a 100
+		una distancia igual a 500
+		una distancia superior a 500
+	metodo costoGramos (gramos: Real) con
+		un valor menor al esperado 
+		un valor igual al esperado 
+		un valor superior al esperado 
+EnvioInternacional
+	metodo costoGramos(gramos:Real) con:
+		gramos menor a 1000
+		gramos igual a 1000
+		gramos mayor a 1000; 
+
+PersonaFisica
+	metodo montoEnvios(inicio:Date, fin: Date) con
+		un valor menor al esperado 
+		un valor igual al esperado 
+		un valor superior al esperado 
+
+Empresa
+	metodo montoEnvios(inicio:Date, fin: Date) con
+		un valor menor al esperado 
+		un valor igual al esperado 
+		un valor superior al esperado   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

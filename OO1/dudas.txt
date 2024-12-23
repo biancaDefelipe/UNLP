@@ -1,0 +1,2 @@
+EJERCICIO 24
+	es mejor usar chronounit o period.between

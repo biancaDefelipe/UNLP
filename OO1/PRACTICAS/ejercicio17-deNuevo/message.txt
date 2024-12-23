@@ -1,0 +1,99 @@
+package org.example.ejercicio17DeNuevo;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.*;
+public class propiedadTest {
+
+
+    private Reserva r1;
+    private Reserva r2;
+    private Reserva r3;
+    private DateLapse periodo;
+    private DateLapse p2;
+    private DateLapse p3;
+    private DateLapse pPrueba;
+    private Propiedad prop;
+    private Usuario u;
+
+
+    @BeforeEach
+    void setUp(){
+        prop=new Propiedad("calle", "mdqprop",1.0);
+        periodo=new DateLapse(LocalDate.of(2024,11,1),LocalDate.of(2024,11,6));
+        p2=new DateLapse(LocalDate.of(2024,11,9),LocalDate.of(2024,11,11));
+        p3=new DateLapse(LocalDate.of(2024,11,12),LocalDate.of(2024,11,15));
+        pPrueba=new DateLapse(LocalDate.of(2024,11,7),LocalDate.of(2024,11,8));
+        u=new Usuario("pepe","calle", 123);
+        r1=new Reserva(periodo,prop,u);
+        r2=new Reserva(p2,prop,u);
+        r3=new Reserva(p3,prop,u);
+        prop.agregarReserva(r1);
+        prop.agregarReserva(r2);
+        prop.agregarReserva(r3);
+    }
+
+    //pruebo el metodo estoyDisponible con un valor borde donde el periodo sea un dia despues de una reserva y un dia antes de otra
+    @Test
+    void testEstoyDisponible(){
+        assertTrue(prop.estoyDisponible(pPrueba.getFrom(),pPrueba.getTo()));
+    }
+
+
+    //me devulve true ya que el periodo pasado termina un dia antes de que empiece el de la reserva
+    @Test
+    void testEstoyDisponibleTrueDiaAntes(){
+        DateLapse d=new DateLapse(LocalDate.of(2024,10,9),LocalDate.of(2024,11,30));
+        assertTrue(prop.estoyDisponible(d.getFrom(),d.getTo()));
+    }
+
+    //me devuelve true ya que el periodo pasado termina un dia despues del periodo de la reserva
+    @Test
+    void TestEstoyDisponibleDiaDespues(){
+        DateLapse d=new DateLapse(LocalDate.of(2024,11,16),LocalDate.of(2024,11,30));
+        assertTrue(prop.estoyDisponible(d.getFrom(),d.getTo()));
+    }
+
+    //me devulve false ya que no esta disponible en la fecha pasada porque tiene una reserva en ese periodo
+    @Test
+    void testEstoyDisponibleFalse1(){
+        assertFalse(prop.estoyDisponible(periodo.getFrom(),periodo.getTo()));
+    }
+
+    //me devuelve false ya que no esta disponible en la fecha pasada porque tiene una reserva en ese periodo
+    @Test
+    void testEstoyDisponibleFalse2(){
+        assertFalse(prop.estoyDisponible(p2.getFrom(),p2.getTo()));
+    }
+    //me devuelve false ya que no esta disponible en la fecha pasada porque tiene una reserva en ese periodo
+    @Test
+    void testEstoyDisponibleFalse3(){
+        assertFalse(prop.estoyDisponible(p3.getFrom(),p3.getTo()));
+    }
+
+    @Test
+    void testDisponibilizar(){
+        prop.disponibilizar(r1);
+        assertFalse(prop.getReservas().contains(r1));
+    }
+
+    //me devuelve el valor espeerado
+    @Test
+    void calcularPreciosTotalesTest(){
+        assertEquals(10.0,prop.calcularPreciosTotales());
+    }
+    //me devuelve un valor diferente al esperado por uno menos
+    @Test
+    void calcularPreciosTotalesTestIncorrecto(){
+        assertNotEquals(10.1,prop.calcularPreciosTotales());
+    }
+
+    //me devuelve un valor diferente al esperado por uno mas
+    @Test
+    void calcularPreciosTotalesTestIncorrecto2(){
+        assertNotEquals(9.9,prop.calcularPreciosTotales());
+    }
+
+}
