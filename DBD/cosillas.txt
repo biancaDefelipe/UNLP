@@ -1,0 +1,64 @@
+π σ ∩ ∪
+1) ALGEBRA
+Comp<=(σfecha<=12/11/2024 ^fecha >= 12/11/2023(Pedido))|X| (σnomProd='ProductoX' (Producto)) |X| Cliente 
+Todo<=Pedido|X| Producto |X| Cliente
+πnomClte, cuit, nomProd, descrip(Todo-Comp)
+  SQL 
+  SELECT C.nomClte, C.cuit, P.nomProd, P.descrip
+  FROM Cliente C
+  INNER JOIN Pedido Pe ON Pe.nroClte= C.nroClte
+  INNER JOIN Producto P ON P.codProd= Pe.codProd
+  EXCEPT
+  SELECT C.nomClte, C.cuit, P.nomProd, P.descrip
+  FROM Cliente C
+  INNER JOIN Pedido Pe ON Pe.nroClte= C.nroClte
+  INNER JOIN Producto P ON P.codProd= Pe.codProd
+  WHERE Pe.fecha BETWEEN '12-11-2024' AND '12-11-2023'
+
+2)
+ALGEBRA
+Comp<=(σfecha<=12/11/2024 ^fecha >= 12/11/2023(Pedido))|X|  Producto |X| Cliente 
+
+
+div<=πnroClite, codProd(Comp) % πcodProd(Producto)
+πemail, cuitnomClte<= Cliente |X| div
+
+
+SQL 
+SELECT C.email, C.cuit, C.nomClte
+FROM Cliente C
+WHERE NOT EXISTS (SELECT * 
+		  FROM Producto P
+		  WHERE NOT EXISTS (SELECT * 
+				    FROM Pedido Pe
+				    INNER JOIN PedProd PP ON PP.nroPed = Pe.nroPed
+				    WHERE Pe.nroClte = C.nroClte AND
+					  P.codProd=PP.codProd AND Pe.fechaPed BETWEEN '12-11-2024' AND '12-11-2023'
+				   )
+		)
+
+
+
+
+
+πσ ∩ ∪
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,2 @@
+--EJERCICIO 4.2
+SELECT Pr.Matricula, Pr.DNI, Pe.Nombre, Pe.Apellido FROM Profesor Pr INNER JOIN Persona Pe on Pr.DNI=Pe.DNI INNER JOIN Profesor_Curso pc ON Pr.DNI= pc.DNIINNER JOIN Curso c ON pc.Cod_Curso=c.Cod_CursoWHERE c.Duracion >100ORDER BY Pr.DNI

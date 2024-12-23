@@ -1,0 +1,136 @@
+
+
+Box = (nroBox, m2, ubicación, capacidad, ocupacion) // ocupación es un numérico indicando cantidad
+de mascotas en el box actualmente, capacidad es una descripción.
+Mascota = (codMascota,nombre, edad, raza, peso, telefonoContacto)
+Veterinario = (matricula, CUIT, nombYAp, direccion, telefono)
+Supervision = (codMascota(fk), nroBox(fk), fechaEntra, fechaSale?, matricula(fk), descripcionEstadia)
+//fechaSale tiene valor null si la mascota está actualmente en el box
+
+--EJERCICIO 11.1
+--Listar para cada veterinario cantidad de supervisiones realizadas con fecha de salida (fechaSale)
+--durante enero de 2024. Indicar matrícula, CUIT, nombre y apellido, dirección, teléfono y cantidad
+--de supervisiones
+
+SELECT V.matricula, V.CUIT, V.nombre, V.apellido, V.direccion, V.telefono, COUNT(*) as cantidad
+FROM Supervision S
+INNER JOIN  Veterinario V ON V.Matricula= S.matricula
+WHERE S.fechaSale IS NOT NULL AND S.fechaSale BETWEEM '01-01-2024' AND '31-01-2024'
+GROUP BY V.matricula, V.CUIT, V.nombre, V.apellido, V.direccion, V.telefono
+
+---------------------------------------------------------------------------
+--EJERCICIO 11.2
+--Listar CUIT, matrícula, nombre, apellido, dirección y teléfono de veterinarios que no tengan
+--mascotas bajo supervisión actualmente
+
+SELECT V.matricula, V.CUIT, V.nombre, V.apellido, V.direccion, V.telefono
+FROM Supervision
+INNER JOIN  Veterinario V ON V.Matricula= S.matricula
+WHERE S.fechaSale IS NOT NULL AND .fechaSale<='2024-11-12'
+
+---------------------------------------------------------------------------
+--EJERCICIO 11.3
+Listar nombre, edad, raza, peso y teléfono de contacto de mascotas que fueron atendidas por el
+veterinario ‘Oscar Lopez’. Ordenar por nombre y raza de manera ascendente.
+SELECT M.nombre, M.edad, M.peso, M.telefono 
+FROM Mascota M
+INNER JOIN Supervision S ON S.codMascota=M.codMascota
+INNER JOIN Veterinario V ON V.matricula = S.matricula 
+WHERE V.nombYAp= 'oscar Lopez'
+ORDER BY m.nombre, m.raza ASC
+
+
+
+----------------------------------------------------------------------
+
+--EJERCICIO 11.4
+Modificar el nombre y apellido al veterinario con matricula ‘MP 10000’, deberá llamarse: ‘Pablo
+Lopez
+
+UPDATE Veterinario SET NomYAp= 'Pablo Lopez' WHERE matricula ='MP 10000'
+
+
+
+-----------------------------------------------------------------------
+EJERCICIO 11.5
+. Listar nombre, edad, raza y peso de mascotas que tengan supervisiones con el veterinario con
+matricula ‘MP 1000’ y con el veterinario con matricula ‘MN 4545’.
+SELECT M.nombre, M.edad, M.raza, M.peso
+FROM Mascota M 
+INNER JOIN Supervision S ON S.codMascota= M.codMascota
+INNER JOIN Veterinario V ON V.matricula = S.matricula 
+WHERE V.matricula = 'MP 1000'
+INTERSECT 
+SELECT M.nombre, M.edad, M.raza, M.peso
+FROM Mascota M 
+INNER JOIN Supervision S ON S.codMascota= M.codMascota
+INNER JOIN Veterinario V ON V.matricula = S.matricula 
+WHERE V.matricula = 'MN 4545'
+-----------------------------------------------------------------------
+EJERCICIO 11.6
+Listar número de box, m2, ubicación, capacidad y nombre de mascota para supervisiones con
+fecha de entrada durante 2024.
+SELECT B.nroBox, B.m2, B.ubicacion, B.capacidad, M.nombre
+FROM Box B
+INNER JOIN Supervision S ON S.nroBox= B.nroBox
+INNER JOIN Mascota M ON M.codMascota= S.codMascota 
+WHERE S.fechaEntra BETWEEN '01-01-2024' AND '31-12-2024'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

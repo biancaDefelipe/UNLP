@@ -1,0 +1,6 @@
+--EJERCICIO 4.1
+SELECT A.DNI, A.Legajo, P.NOMBRE, P.APELLIDO 
+FROM Alumno A 
+INNER JOIN  Persona P ON A.DNI= P.DNI
+WHERE A.Año_ingreso < 2014
+

@@ -1,0 +1,111 @@
+1)
+OS26<= (σ fecha='26/06/2022' (Turno)) |X| ObraSocial
+π especialista.matricula,        σOS26.Matri=Especialista.Matri^(OS26 x Especialista x Paciente
+				  OS26.DNI=Paciente.DNI
+  especialista.nombre, 
+  especialista.apellido, 
+  paciente.DNI, paciente.nombre, 
+  paciente.apellido, telefono, 
+  OS26.fecha, OS26.nombre, 
+  OS26.descripcion
+
+-------------------------------------------------------
+SELECT E.nombre, E.Apellido, E.matricula,P.nombre, P.apellido, P.DNI, 
+	P.telefono, T.fecha, OS.nombre, OS.descripcion
+FROM Turno T
+INNER JOIN Obra Social OS ON (T.nombre= OS.nombre)
+INNER JOIN Paciente P ON (P.DNI= T.DNI) 
+INNER JOIN Especialista E ON (E.Matricula= T.Matricula) 
+WHERE T.fecha = '26-06-2022'
+
+
+
+2)
+lo que te pide todos es el cociente !!
+todo<= σPaciente.DNI= Turno.DNI(Paciente x Turno)
+todo2<= πDNI,Matricula(todo) % πMatricula(Especialistas)
+πDNI, nombre, apellido, domicilio, telefono(todo2 |X| Pacientes)
+
+-----------------------------
+primero va un extremo (lo que quiero proyectar) y despues el otro extremo 
+en el medio lo que los une!!
+
+SELECT * 
+FROM Paciente P
+WHERE NOT EXISTS(
+	SELECT * 
+	FROM Especialista E
+	WHERE NOT EXISTS(
+		SELECT * 
+		FROM Turno T
+		WHERE T.Matricula = E.Matricula AND T.DNI = P.DNI
+	)
+)
+
+
+3)
+2021<= σTurno.DNI= Paciente.DNI((σfecha>=01/01/2021^ fecha>=31/12/2021(Turno)) x Paciente)
+2019<= σTurno.DNI= Paciente.DNI((σfecha>=01/01/2019^ fecha>=31/12/2019(Turno)) x Paciente)
+
+πDNI, Paciente.nombre,apellido (2021-2019)
+-----------------------------------------------------------------
+SELECT * 
+FROM Paciente P
+INNER JOIN Turno T ON T.DNI= P.DNI
+WHERE (T.fecha BETWEEN '01-01-2021' AND '31-12-2021') AND T.DNI NOT IN (
+					SELECT T.DNI 
+					FROM Turno T 
+					WHERE T.fecha BETWEEN '01-01-2019' AND '31-12-2019'
+					)
+4)
+OSDE<=(Paciente x (Turno |X| σnombre='osde' (ObraSocial)))
+IOMA<=(Paciente x (Turno |X| σnombre='ioma' (ObraSocial)))
+
+πDNI, Paciente.nombre,apellido (OSDE ∩ IOMA) 
+------------------------------------
+SELECT  P.DNI, P.nombre, P.apellido, P.domicilio, P.telefono
+FROM Paciente P 
+INNER JOIN Turno T ON T.DNI = P.DNI
+INNER JOIN ObraSocial OS ON (OS.nombre IS NOT NULL) AND (OS.nombre= T.nombre)
+WHERE OS.nombre = 'osde' 
+INTERSECT (
+SELECT  P.DNI, P.nombre, P.apellido, P.domicilio, P.telefono
+FROM Paciente P 
+INNER JOIN Turno T ON T.DNI = P.DNI
+INNER JOIN ObraSocial OS ON (OS.nombre IS NOT NULL) AND (OS.nombre= T.nombre)
+WHERE OS.nombre = 'ioma' 
+)
+
+5)
+TODO LO DEL SELECT VA EN EL GROUP BY!!
+HAVING ES EL WHERE DEL GROUP BY!!! SIRVE PARA EVALUAR CONDICIONES
+
+SELECT E.Matricula, E.nombre, E.apellido, COUNT(*) as cantidadTurnos
+FROM Especialista E 
+INNER JOIN Turno T ON T.Matricula= E.Matricula
+WHERE T.fecha BETWEEN '2022-01-01' AND '2022-12-31'
+GROUP BY E.Matricula, E.nombre, E.apellido
+
+
+6)
+SELECT P.DNI, P.nombre, P.apellido 
+FROM Paciente P
+INNER JOIN Turno T ON T.DNI= P.DNI
+WHERE T.fecha BETWEEN '2020-01-01' AND '2020-12-31'
+GROUP BY P.DNI, P.nombre, P.apellido 
+HAVING COUNT (*) > 5
+π σ ∩ ∪
+
+SIEMPRE QUE TENGO IN O NOT IN VA SUBCONSULTA (O SEA SELECT...blabla) 
+SI PONGO INTERSECT O UNION NO PONER ASTERISCO 
+
+
+
+
+
+
+
+
+
+
+
