@@ -1,0 +1,88 @@
+1) Plantillas y herencia
+1a)
+Si aparece una nueva fuente de energía como paneles solares con baterías, y quiero poder combinarlas con todas las alternativas posibles de locomoción y armamento, tengo que crear muchas subclases nuevas.
+
+Esto se debe a que cada variante de robot está modelada como una subclase distinta. Por ejemplo, si ya tenía 2 formas de locomoción (orugas y overcraft) y 2 de armamento (láser y bombas), ahora al agregar una nueva fuente de energía, debo crear 4 nuevas clases:
+
+SolarPanelCaterpillarRobotWithLasers
+
+SolarPanelCaterpillarRobotWithBombs
+
+SolarPanelOvercraftRobotWithLasers
+
+SolarPanelOvercraftRobotWithBombs
+
+Y ademas una clase abstracta SolarPanelRobot.
+
+1b)
+No, no se puede cambiar el sistema de armas de un robot ya instanciado.
+En este diseño con herencia, cada tipo de robot es una subclase específica. Una vez que instanciás, el tipo está fijado: no podés reemplazar selectivamente una parte sin crear un nuevo objeto.
+
+1c)
+El nivel de carga de la batería debería estar almacenado como variable de instancia dentro de la clase que representa la fuente de energía, por ejemplo dentro de SolarPanelRobot.
+
+Si se necesita verificar la energía antes de disparar el láser, eso implicaría que el método fireArms() debería consultar a la fuente de energía si tiene suficiente carga. Esto acopla las partes: el sistema de armas depende del sistema de energía, lo que en herencia puede generar problemas (por ejemplo, acceder directamente a variables de instancia o tener que propagar métodos innecesarios).
+
+2) Plantillas y composición
+2a)
+Si aparece una nueva forma de locomoción como tracción 4x4, solo necesito agregar una clase nueva que extienda de LocomotionSystem, por ejemplo:
+
+FourByFourWheels extends LocomotionSystem
+
+Y luego instancio un nuevo robot pasándole esa locomoción junto con la combinación de armas y energía que quiera:
+
+Robot r = new Robot(new FourByFourWheels(), new LaserSystem(), new NuclearReactor());
+
+2b)
+Sí, con composición puedo cambiar dinámicamente una parte del robot (como el sistema de armas) sin necesidad de crear un objeto nuevo.
+Esto es porque cada parte es un objeto separado, y puedo hacer algo como:
+
+robot.setArmsSystem(new BombsSystem());
+
+2c)
+El nivel de carga de batería debería estar almacenado dentro del objeto que representa la fuente de energía (por ejemplo, SolarWithBattery).
+
+Como el sistema de armas no tiene acceso directo a esa fuente (no hay herencia compartida), debería pedírselo al robot, y el robot delegaría a su fuente de energía:
+
+if (robot.getEnergySource().hasEnoughEnergy()) {
+    robot.getArmsSystem().fire(robot);
+}
+Esto obliga a tener interfaces públicas claras y más desacoplamiento, lo cual es una ventaja.
+
+3) Ventajas y desventajas de herencia vs. composición
+Herencia
+- Ventajas:
+
+	1. Sencillo para pocas combinaciones.
+
+	2. Las subclases tienen acceso directo a variables y métodos comunes.
+
+	3. Implementar métodos gancho es directo.
+
+- Desventajas:
+
+	1. No escala bien: cada combinación implica una nueva subclase.
+
+	2. Mas duplicación de código.
+
+	3. No se puede cambiar partes de un objeto ya instanciado.
+
+	4. Fuerte acoplamiento.
+
+Composición
+- Ventajas:
+
+	1. Escala bien: agregar nuevas variantes no requiere reescribir combinaciones.
+
+	2. Menos duplicación de código.
+
+	3. Se pueden cambiar partes dinámicamente (en tiempo de ejecución).
+
+	4. Menor acoplamiento.
+
+- Desventajas:
+
+	- Mayor cantidad de delegación y diseño de interfaces.
+
+	- Las partes no tienen acceso a atributos del robot directamente, por lo que se deben pasar como parámetros o tenef métodos públicos.
+

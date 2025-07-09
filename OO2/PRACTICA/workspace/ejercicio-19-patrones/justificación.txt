@@ -1,0 +1,27 @@
+✅ ¿Por qué usar el patrón Adapter?
+La clase HomeWeatherStation ya existe y no se puede modificar, pero se espera que trabaje con una interfaz WeatherData. Como esta clase ya implementa los mismos métodos de la interfaz, pero devuelve los datos en Fahrenheit y queremos poder trabajar también en Celsius, necesitamos adaptarla.
+
+🌟 Objetivo:
+Poder usar una clase existente (HomeWeatherStation) como si devolviera temperatura en grados Celsius u otro formato sin modificar su implementación.
+
+🧱 Participantes del patrón Adapter:
+Rol	Clase	Función
+Target	WeatherData	Interfaz esperada por los clientes
+Adaptee	HomeWeatherStation	Clase que ya existe y que hay que adaptar
+Adapter	CelsiusAdapter	Adapta HomeWeatherStation para devolver en °C
+
+🧠 Idea:
+CelsiusAdapter implementa WeatherData, tiene una instancia de HomeWeatherStation y adapta la respuesta de getTemperatura() (transforma de °F a °C).
+
+✅ ¿Por qué usar el patrón Decorator?
+Una vez que tenemos la temperatura en el formato deseado (gracias al Adapter), el usuario puede querer ver datos adicionales como promedio, mínimo, máximo, etc. Esos comportamientos deben agregarse dinámicamente, según la configuración, y sin romper el principio de cerrado-abierto (Open/Closed).
+
+🌟 Objetivo:
+Agregar funcionalidades de manera flexible a WeatherData (como mínimo, máximo, promedio) sin alterar las clases existentes.
+
+🧱 Participantes del patrón Decorator:
+Rol	Clase	Función
+Component	WeatherData	Interfaz común para todos los objetos que se pueden decorar
+ConcreteComponent	HomeWeatherStation, CelsiusAdapter	Implementación base de los datos
+Decorator	WeatherDecorator	Clase abstracta que implementa WeatherData y decora
+ConcreteDecorator	MinimaDecorator, MaximaDecorator, PromedioDecorator	Agregan comportamiento específico (mínimo, máximo, promedio)
