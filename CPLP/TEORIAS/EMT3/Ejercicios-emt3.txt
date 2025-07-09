@@ -1,0 +1,104 @@
+
+EMT 2023 TEMA B- 
+--------------------------------------------------------------------------------------------------------------------------------------------
+____________________________________________________EJERCICIO 2________________________________________________________
+
+Para este programa en ADA indique de qué forma simularía el método por reasunción utilizando los constructores del lenguaje cuando se levanta una excepción en la linea 7.Justifique indicando qué instrucciones utilizaría y en qué lugar del código las ubicaría (numeros de línea).Puede incluir pseudocódigo.
+
+procedure Program is
+e: exeption
+...
+Begin 
+...
+..if (condError) then 
+		raise e; 
+  endif
+....
+Exception
+when e: begin ...
+		 ... (raise)
+	End
+When others Begin 
+	...
+	End
+end Program. 
+
+
+RESPUESTA
+ADA aplica el criterio de Terminación para manejar excepciones y cuando una unidad que genera una excepción proporciona un manejador para la misma, el control se transfiere al manjedador: 
+	- Se omiten todas las instrucciones que siguen al punto donde se levanto la excepción
+	- Se ejecuta el manejador
+	- El programa continua su ejecución desde la instrucción que sigue al manejador 
+
+En el código podemos ver que la excepción ya tiene un manejador (when e), pero en vez de aplicar medidas correctivas para manejar la excepción y así poder continuar la ejecución de este código, la está propagando mas arriba en la jerarquia de manejo de excepciones mediante la palabra reservada raise.
+El problema está en la línea 12, en donde dentro del manejador de la excepción e, se levanta la misma escepción. Como ADA implementa el criterio de manejo de excepciones de terminación, sale por propagación y terminaria dando error. 
+Si se quiere simular resaunción lo que tengo que hacer es modificar a partir de la linea 7:
+
+	7. Declare
+	8. raise e; 
+	9. 	when e: begin
+       10.		(aca manejo la execpción) 
+       11. 	End
+       12. end
+       13.endif
+	//resto del código 
+
+
+7. declare
+8. begin
+9.    if condError then
+10.      raise e;
+11.    end if;
+12. exception
+13.   when e =>
+14.      -- manejo local de la excepción (corrijo lo necesario)
+15. end;
+
+"Como ADA no permite reanudar la ejecución automáticamente en el punto donde falló la instrucción (raise), la manera de simular la resaunción es encapsular ese fragmento en un bloque declare-begin-exception-end para manejar localmente la excepción, aplicar medidas correctivas y continuar con el flujo general del programa."
+	
+
+____________________________________________________EJERCICIO 3________________________________________________________
+
+Indique cuál de los dos códigos pertenece a un lenguaje lógico y qué componentes (cláusulas) encuentra en él describiéndolos claramente.
+
+codigo 1: 
+	rel(a,b). 
+	rel(b,c). 
+	rel(a,c):-rel(a,b), rel(b,c).
+
+codigo 2: 
+	var a,b, c:integer; 
+	rel(a,b); //relaciona a la variable a con b y retorna true
+	rel(b,c); //relaciona a la variable a con b y retorna true
+	if(rel(a,b) and rel(b,c)) rel(a,c)
+
+
+
+RESPUESTA: 
+	El código 1  pertenece a un lenguaje lógico, podemos ver esto ya que sigue la sintaxis de prolog y que presenta los siguientes elementos caracteristicos del paradigma de programación lógico: 
+		-Hecho: Representan relaciones entre objetos y expresan verdades. En este código los hechos son: 
+			rel(a,b) 
+			rel(b,c)
+		-Regla: tienen forma de conclusión :- condición (Sintaxis de prolog), en donde :- indica 'si/if'. la conclusión es un simple predicado y la condición es un conjunto de predicados separados por comas que representan un AND lógico. En el código la regla es: 
+			rel(a,c):- rel(a,b),rel(b,c).
+		
+	Ademas podemos confirmar que el código 2 no pertenece a u lenguaje lógico ya que representa a la regla como lo haria un lenguaje procedural(if condicion else conclusion). 
+
+En resumen, el código 1 se ajusta al paradigma lógico ya que está compuesto exclusivamente por hechos y reglas escritas en la sintaxis declarativa de Prolog, mientras que el código 2 responde a un paradigma imperativo donde se realizan acciones secuenciales con estructuras de control.
+
+El código 1 pertenece a un lenguaje lógico, específicamente sigue la sintaxis del lenguaje Prolog, el cual es característico del paradigma de programación lógica. En este paradigma, los programas se componen de cláusulas que pueden ser:
+
+Hechos: Representan relaciones que se consideran verdaderas. En el código:
+
+rel(a,b).
+
+rel(b,c).
+
+Reglas: Permiten inferir nueva información a partir de hechos existentes. Tienen la forma conclusión :- condiciones. El operador :- puede leerse como “si” (implicación lógica), y las condiciones se separan por comas que representan un AND lógico. En el código:
+
+rel(a,c):- rel(a,b), rel(b,c).
+
+El código 2, en cambio, no pertenece a un lenguaje lógico. Representa una estructura imperativa/procedural, con declaraciones de variables (var a,b,c: integer;) y uso de una instrucción if para verificar condiciones y ejecutar una acción, que es característico de los lenguajes imperativos como Pascal, C, etc.
+
+En resumen, el código 1 corresponde a un lenguaje lógico porque utiliza hechos y reglas para inferencia declarativa, mientras que el código 2 sigue un paradigma imperativo donde se especifican pasos secuenciales y estructuras de control.
+--------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,284 @@
+EMT 2023: 
+Pregunta 1: 
+	Cual de las siguientes opciones son verdaderas
+	1. Las variables constantes tienen alcance todo el programa 
+	2. Un error de tipo semántico siempre es provocado por un error de tipo sintáctico.
+	3. En muchos lenguajes, una variable puede aparecer del lado derecho de la asignación sin habérsela asignado, a traves de una sentencia,un valor previamente 
+
+Pregunta 2: 
+	Lea el siguiente fragmento de texto sacado de un libro de un lenguaje de programación XX y diga qué caracteristicas del mismo le hace pensar que este lenguaje no es ortogonal. Justifique la respuesta. 
+	
+	"Retorno de valores. Cuando la función finaliza hemo dicho que se devuelve un valor. Este valor en principio no está definido, es decir, puede devolder cualquier cosa. Para obligar a la función a retornar un determinado valor se utiliza la sentencia return, seguida del valor a retornar. Como todas las sentencias en XX se debe acabar con un ';'.Por ejemplo: 
+		lista ()
+		{
+			return 1; 
+		}
+
+	devulve el entero 1 cada vez que es llamada. En XX podemos devolver cualquier tipo de datos de los llamados escalares. Los tipos de datos escalares son los punteros, tipos nu,éwricos y el tipo carácter. En XX no se pueden devolver tipos de datos vectores (array) ni estructuras. 
+
+Pregunta 3:
+	Sea el siguiente ejemplo escrito en dos lenguajes distintos, indiquie las diferencias en cuanto a la sintaxis concreta y pragmática y determine si la sintáxis abstracta es coincidente o no lo es. 
+	 1 ) for i in (0..9)
+		puts i
+	     end
+	 2 ) for (in i =0; i<= 9; i++){
+		write(i); 
+	     }
+
+Pregunta 4: 
+	¿En el proceso de compilación del siguiente programa escrito en Pascal, qué tipo de error podría llegar a detectar el compilador, en la sentencia que se encuentra remarcada. (n:= n /cad; ) Especifíque el error que podría detectarse y, en qué proceso del compilador se detectaría. Justifique la respuesta. 
+	 
+	program Prueba; 
+	var 
+		n: integer; 
+		cad: String[4]; 
+	begin 
+		n:= 8; 
+		cad :='hola'; 
+		n:= n / cad; 
+		writeln(n, cad); 
+	end; 
+
+
+
+-------------respuestas---------------
+1) 1. Falsa, el alcance de una variable depende de donde se declare, no de si es constante o no. 
+   2. Falsa.Para que un error sea semántico, la sintaxis tiene que ser correcta.
+   3. Verdadera. En algunos lenguajes se puede. En C por ejemplo puedo hacerlo, aunque el valor de la variable que está en el lado derecho sea basura (indefinido)
+2)  El lenguaje no es ortogonal porque no permite aplicar de forma coherente y predecible las mismas reglas a todos los tipos de datos. Por ejemplo, si puedo devolver enteros, caracteres y punteros, también debería poder devolver arrays y estructuras. El hecho de que algunas combinaciones (como retornar un array) no sean válidas rompe con el principio de ortogonalidad, que establece que los conceptos del lenguaje deberían poder combinarse sin restricciones arbitrarias.
+3)  La sintaxis abstracta se enfonca en la estructura lógica del programa, sin importar la implementación concreta de este. Por ende, la sintaxis abstracta es coincidente porque en ambos casos hay una construcción de bucle for que recorre los números del 0 al 9 y ejecuta una instrucción por iteración. 
+    En cuanto a la sintaxis concreta, esta se enfoca mas en la parte léxica y visual, en la forma específica en la cual se escribe el código (espacios, parentesis, comas), por lo cual se puede ver que la sintaxis  concreta de cada fragmento es diferente ya que por ejemplo uno usa puts, el otro write, y las reglas de uso de paréntesis, punto y coma y llaves también difieren. 
+    Por último la sintaxis pragmática, tiene que ver con el uso practico del lenguaje y vas mas alla de que este compile o no, tiene que ver con las buenas prácticas, la legibilidad. Puede que la sintaxis concreta este bien pero la pragmatica no. Ambos fragmentos son simples y legibles, pero puede diferir según el contexto del lenguaje y la comunidad. Por ejemplo, el primer fragmento (Ruby) tiende a ser más conciso y expresivo, mientras que el segundo (C/Java) requiere más estructura.
+
+
+4) El error que se detectaria se debe a que pascal es un lenguaje fuertemente tipado por lo cual no permite operaciones entre tipos distintos: al hacer n/ cad estoy intentando dividir un entero por un string. Este error se detectaria en compilación, en la etapa de analisis de semántica estática, ya que aunque la sintaxis de la sentencia sea correcta, la semántica no lo es.
+
+
+
+PREGUNTAS RANDOM
+Pregunta 1: 
+	¿Cuales de las siguientes afirmaciiones son verdaderas?
+	1. El análisis léxico transforma el código fuente en una estructúra de árbol que representa su gramática
+	2. En un lenguaje ortogonal, los distintos conceptos del lenuaje pueden combinarse libremente sin generar inconsistencias
+	3. Un error de tipo puede ser detectado en tiempo de ejecucción o en compilación, según el lenguaje 
+	4. En todos los lenguajes, declarar una variable implica asignarle un valor. 
+
+Pregunta 2: 
+	Lea el siguiente texto y explique por qué el lenguaje podría considerarse no ortogonal: 
+	"En el lenguaje YY, un for puede usarse para recorrer listas y rangos numéricos, pero no puede aplicarse sobre diccionarios. Además, los operadores lógicos solo pueden usarse en expresiones if, pero no dentro de estructuras while. Las funciones pueden devolver enteros o cadenas, pero no listas". 
+	¿En que aspectos se ve comprometida la ortogonalidad del lenguaje YY?
+
+Pregunta 3: 
+	Compara los siguientes fragmentos de código escritos en distintos lenguajes, e indicá:
+	a) Si comparten la misma sintáxis abstracta. 
+	b) Qué diferencias concretas existen. 
+	c) Que diferencias pragmáticas hay. 
+	
+	1)  for i in range (10): 
+		print (i)
+	2) for (int i = 0; i < 10; i++){
+		System.out.println(i); 
+Pregunta 4: 
+	Dado el siguiente código en un lenguaje ficticio, identifica qué tipo de error contiene (léxico, sintáctico o semántico) y explica por qué
+	
+	function sima (a: entero, b: entero): entero{
+		return a + ; 
+	} 
+
+Pregunta 5: Compilación
+	Durante el proceso de compilación de un lenguaje fuertemente tipado ¿En qué etapa se detectan los siguientes errores?
+	a) Una variable usada sin declarar 
+	b) un bucle mal cerrado 
+	c) El uso incorrecto de un operador sobre dos tipos incompatibles 
+	d) Una palabra reservada mal escrita 
+
+Pregunta 6: 
+	Explicá las diferencias entre un lenguaje de tipado estático y uno de tiádo dinámico. Dales un ejemplo de un posible error que uno detectaría en compilación y otro en ejecución
+
+-------------respuestas---------------
+Pregunta 1: 
+	1. Falso. El analisis léxico hace un análisis a nivel de palábra (lexema) dividiendo el programa en sus elementos/ categorias (identificadores, delimitadores, operadores, numeros, palabras clave, etc) para analizar el tipo de cada uno y ver si son tokens válidos. 
+	2. Verdadero
+	3. Verdadero. En los lenguajes compilados se detectará en tiempo de compilación, mientras que en los lenguajes interpretados se detectará en tiempo de ejecución. 
+	4. Falso. Declarar un variable implica crear una ligadura entre un identificador (string de caracteres que utilizará el lenguaje para referenciar a la variable) y una celda de memoria que ocupa una direccion;  un alcance que es el rango de instrucciones en el que es conocido el nombre de la variables;  un tipo, que es el conjunto de valores que se le pueden asociar a una variable y el conjunto de operaciones permitidas para la misma. El valor de la variabe es lo que se denomina R-Valor, que es el valor codificado almacenado en la dirección de memoria asociada a la variable. En varios lenguajes como C yo puedo declarar una variable (por ejemplo int x; ) y no asignarle un valor, sino que tomaria el valor que ya estaba en la celda de memoria que se le asigno a la variable 
+
+Pregunta 2: 
+	La ortogonalidad del lenguaje se ve comprometida ya que no puede aplicarse de manera coherente y predecible las mismas sentencias con diversos tipos de datos y operadores (for no puede recorrer diccionarios, while no puede usar operadores lógicos).Ademas, la ortogonalidad se ve comprometida porque no me permite devolver distintos tipos de datos, restringiendo al programador a devolver solo enteros o cadenas. El hecho de que estas combinaciones de los componentes del lenguaje de programación no sean válidas, rompe con con el principio de ortogonalidad, que establece que los conceptos del lenguaje deberían poder combinarse sin restricciones arbitrarias.
+
+Pregunta 3: 
+	a) La sintaxis abstracta es la misma en ambos códigos, ya que ambos realizan un for del 0 al 9 ( 10 iteraciones) imprimiendo el número actual de iteración en cada una de ellas. 
+	b) La sintaxis concreta es distinta en cada uno de ellos. La forma de declarar sentenia for cambia en cada lenguaje, ademas del uso de parentesis en java y de : en python, y también la impresion en pantalla se realiza con instrucciones diferentes.
+	c) La sintaxis pragmática es similar en ambos, ya que los dos fragmentos son legíbles. Sin embargo, la sintaxis de python al contener menos elementos puede parecer más concisa y expresiva mientras que la sintaxis de java es mas estructurada
+
+pregunta 4
+	la sentencia: 
+		return a +; 
+	presenta un error sintáctico (por producción incompleta) el cual se detectaría en la etapa de análisis sintáctico, por el Parser. En esta etapa se realiza un analisis a nivel de sentencia/ estructuras usando los tokens que identifico y clasificó el aalizadpr léxico. Estas estructuras se pueden representar mediante el árbol de análisis sintpactico. En el caso de la sentencia de suma, esta definida como 'operando o variable' '+' 'operando o variable'. Como luego del operando no hay otro operador o variable, el compilador, si es compilado, o interprete, si es interpretado, detentara el error y no permitira avanzar a la etapa de analisis semántico 
+
+Pregunta 5: 
+	a) Se detecta en la etapa de análisis de semántica estática, cuando realiza las comprobaciones de nombres (que todas la variables esten declaradas)
+	b) Se detecta en la etapa de análisis sintáctico, por el Parser, cuando este analizando la sentencia/estructura que tenga el bucle mal cerrado y utiliza técnicas de grmáticas formales las cuales son un conjunto de reglas que definen como tiene que estar escrita una sentencia para que sea válida. 
+	c) Se detecta en la etápa de análisis de semántica estática, como un problema de tipos incopatibles 
+	d) Se detecta en la etápa de análisis léxico, la cual hace el análisis a nivel de palabra (lexema) dividiendo el programa en sus elementos/cateorias, analizando el tipo de cada uno para ver si son tokens válidos. Si la palabra reservada esta mal escrita, es léxicamente válida como string, pero no va a coincidir con ninguna entrada en la tabla de simbolos y va a levantar un error
+
+Pregunta 6: 
+	En un lenguaje de tipado estático, el tipo de cada variable se define en tiempo de compilación y no puede cambiar durante la ejecución. Esto permite que muchos errores relacionados con los tipos (por ejemplo, intentar sumar un número y una cadena) se detecten antes de ejecutar el programa. Ejemplos de lenguajes con tipado estático son Java, C, C++.
+
+	En cambio, en un lenguaje de tipado dinámico, el tipo de las variables se determina en tiempo de ejecución, y una misma variable puede tener valores de distintos tipos en distintos momentos. Esto brinda mayor flexibilidad, pero también puede provocar errores que solo se detectan cuando el programa ya está corriendo. Ejemplos de lenguajes dinámicos son Python, JavaScript.
+
+-------------------------------------
+PREGUNTAS RANDOM
+Pregunta 1: 
+	Verdadero o Falso: 
+		El L-valor de una variable representa el valor que tiene en un momento dado durante la ejecución. 
+
+Pregunta 2: 
+	¿Que tipo de análisis detectaría el siguiente error?
+		int x= " hola"
+
+Pregunta 3:
+	¿Qué nombre recibe la relación entre un identificador y una entidad (como una celda de memoria, función, tipo, etc) en un lenguaje de programación?
+	
+Pregunta 4: 
+	¿Cuales son los atributos esenciales de una variable?
+
+Pregunta 5: 
+	Verdadero o Falso 
+	En una producción recursiva por la izquierda, el símbolo no terminal se vuelve a llamar a sí mismo al final de la regla. 
+
+Pregunta 6: 
+	En la sintaxis concreta ¿Cuál de estps elementos forma parte del lenguaje? 
+	a) los árboles de análisis
+	b) las palabras reservadas
+	c) los tipos de dato 
+	d) el valor de las variables 
+
+Pregunta 7: 
+	¿Como se denomina al conjunto de reglas que definen la estructura válida de las expresiones y sentencias de un lenguaje? 
+
+Pregunta 8: 
+	Ordená las siguientes estructuras sintácticas de menor a mayor nivel: 
+	- Sentencias	
+	- Palabras
+	- Expresiones 
+
+Pregunta 9: 
+	¿Que diferencia hay entre una variable declarada dentro de una función y una global en cuanto a su tiempo de vida? 
+
+Pregunta 10: 
+	Verdadero o Falso: 
+		En un lenguaje compilado, el análisis semántico puede realizarse tanto en tiempo de compilación como en tiempo de ejecución 
+
+Pregunta 11: 
+	¿Que estructuras podemos usar para definir la sintaxis de una lenguaje formal? (Nombrar al menos dos)
+
+Pregunta 12: .
+	Completá:
+	El _______ de una variable indica en qué partes del código su nombre hace referencia a esa variable
+
+-----respuestas----
+Pregunta 1: 
+	Falso. El L-valor representa el área de memoria ligada a la variable durante la ejecución. El valor de de la variable se refleja en el R-valor (de forma codificada)
+
+Pregunta 2: 
+	El error sería detectado en la etapa de analisis de semántica estática mediante el uso de la gramática de atributos. 
+
+Pregunta 3: 
+	El nombre que recibe es Ligadura o Binding, que es el momento en el que a un atributo de una entidad se le asocia un valor determinado 
+
+Pregunta 4: 
+	Los atributos de una variable son: 
+	- Nombre: Es el string de caracteres que se usa para referenciar a la variable. Este es introducido por una sentencia de declaración y su longitud máxima puede variar en los distintos lenguajes de programación
+	- Tipo: Es el conjunto de valores posibles que se le pueden asociar a la variable asi como tambien el conjunto de operaciones permitidas sobre ellas. En los lenguajes fuertemente tipados no se puede operaciones entre variables de diferentes tipos, sin embargo  algunos lenguajes como Python cuentan con reglas de conversion mediantes las cuales se pueden realizar estas operaciones. Los tipos de las variables se pueden clasificar en: tipos predefinidos: los tipos base que estan descriptos en la definición del lenguaje; tipos definidos por el usuario, los cuales se pueden definir por el programador a partir de los tipos base y constructores predefinidos; y tipos de datos abstractos (TAD) los cuales ocultan los detalles de implementación y representación interna y los cuyas instancias se pueden manipular mediante un set de operaciones. Hay lenguajes de tipado dinámico como Python o Ruby que comprueban los tipos de las variable durante la ejecución por lo cual el tipo de una variable puede cmabiar durante la ejecución del programa, y también hay lenguajes de tipado estático como Java en los cuales se realiza la comprobación de tipos antes durante la compilación, por lo cual el tipo de una variable no puede cambiar durante la ejecución del programa 
+	- Alcance: Es el rano de intrucciones en el que es conocido el nombre de la variable (visibilidad). Según el alcance las variables se pueden clasificar en:  globales, son todas las referencias a variables creadas en el programa principal; locales, son todas las referencias a variables creadas dentro de una unidad; y no locales, son todas las referencias a variables que se utilizan dentro de un subprograma pero no no fueron creadas en esa unidad. 
+	- L-valor: Es la dirección del area de memoria asociado a la variable y esta asociado al tiempo de vida de la misma (Tiempo en que está alocada la variable en memoria y en el cual el binding existe). Las intrucciones de un programa acceden a la variable por su L-valor 
+	- R-valor: Es el valor codificad almacenado en la ubicación asociada a la variable (L-valor). La codificación se interpreta según el tipo de la variable. 
+
+Pregunta 5: 
+	Falso. En una producción recursiva por la izquierda, el aímbolo no termial se vuelve a llamar a si mismo al principio de la regla 
+
+Pregunta 6: 
+	b) Las palabras reservadas, ya que dependen de los tokens válidos en un lenguaje específico
+
+Pregunta 7: 
+	Se denomina gramática al conjunto de reglas que definen la estructura válida de las expresiones y sentencias de un lenguaje
+
+Pregunta 8: 
+	1. Palabra
+	2. Expresiones
+	3. Sentencias 
+
+Pregunta 9: 
+	El tiempo de vida de una variable declarada de forma global se extendera durante toda la ejecución del programa, mientras que el tiempo de vida de una variable local se limita al tiempo de ejecución de la función, es decir, desde que se entra a la función hasta que se sale de ella
+
+Pregunta 10:
+	Verdadero. La fase de semántica estática se realiza durante la compulación, previo a la ejecución del programa y está relacionada con las formas válidas. Los errores que detecta esta etapa son: Uso de variables sin declarar, asignar un valor de tipo incorrecto (por ejemplo int x= "hola"), llamar a una función con la cantidad de parámetros incorrectos, entre otros. 
+		   Ademas de la semántica estática, está la semántica dinámica cuyo efecto se ve durante la ejecución del programa. Algunos de los errores que detecta son división por cero, acceder a una posición de memoria no válida, entre otros. 
+
+Pregunta 11: 
+	Se puede usar: 
+	- El lenguaje natural 
+	- Usando la gramática libre de contexto (por ejemplo BNF)
+	- Usando diagramas seintácticos que son equivalentes a BNF pero mucho mas intuitivos 
+	
+Pregunta 12: 
+	alcance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
