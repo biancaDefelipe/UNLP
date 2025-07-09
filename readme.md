@@ -10,9 +10,9 @@
     <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/OO1">Orientación a objetos 1</a></p>
     <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/IS1">Ingenieria de software 1</a></p>
     <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/ISO">Introducción a los sistemas operativos</a></p>
-    <li><p>Conceptos y paradigmas de lenguajes de programación</p>
-    <li><p>Matemática 3</p>
-    <li><p>Ingenieria de software 2</p>
-    <li><p>Orientación a objetos 2</p>
+    <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/CPLP">Conceptos y paradigmas de lenguajes de programación</a></p>
+    <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/MATE%203"></a>Matemática 3</p>
+    <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/IS2">Ingenieria de software 2 </a></p>
+    <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/OO2">Orientación a objetos 2</a></p>
   </ul>
 </h2>
