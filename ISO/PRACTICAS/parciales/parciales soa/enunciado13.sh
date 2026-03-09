@@ -17,7 +17,7 @@ dirUsrService="/var/log/dir2"
 #sigo=0
 
 #pongo las verificaciones de dirArch y dirLog afuera por si alguien llega a borrar el directorio o algo, en cada vuelta del while verifico 
-#while [ $sigo -eq 0 ]; 
+#while [ $sigo -eq 0 ];   
 while :  
 do 
 	if [ -d "$dirDestino" ]; then 

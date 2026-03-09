@@ -1,8 +1,8 @@
 .data 
 tabla: .word 20, 1, 14, 3, 2, 58, 18, 7, 12, 11 
 num: .word 7
-
 long: .word 10 
+
  .code 
  ld r1, long(r0) 
  ld r2, num(r0) 

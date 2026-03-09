@@ -1,6 +1,6 @@
 .data
-leet_letras: .asciiz "a, e, i, o, s, t"
-leet_car:    .asciiz "4, 3, 1, 0, 5, 7"
+leet_letras: .asciiz "aeiost"
+leet_car:    .asciiz "431057"
 
 fin: .asciiz "." ; 2eh
 data:  .word 0x10008
