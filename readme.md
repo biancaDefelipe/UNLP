@@ -14,5 +14,9 @@
     <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/MATE%203">Matemática 3</a></p>
     <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/IS2">Ingenieria de software 2 </a></p>
     <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/OO2">Orientación a objetos 2</a></p>
+    <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/Programaci%C3%B3n%20Concurrente">Programación concurrente</a></p> 
+    <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/Proyecto%20de%20Software">Proyecto de software</a></p>  
+      <li><p><a href="https://github.com/biancaDefelipe/UNLP/tree/main/Bases%20de%20Datos%201">Bases de datos 1 </a> </p></li>
   </ul>
 </h2>
+
