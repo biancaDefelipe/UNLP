@@ -18,3 +18,15 @@
 /TALLER DE PROGRAMACION/Finales y parciales/final Objetos 12-12-23/FinalGaleria/nbproject/private/
 /TALLER DE PROGRAMACION/Finales y parciales/final objetos 2da febrero/FinalGaleria/nbproject/private/
 /TALLER DE PROGRAMACION/Finales y parciales/final objetos 2da febrero/FinalGaleria/build/
+
+
+
+# --- Archivos Pesados ---
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.rar
+*.zip
+*.7z
+*.tar.gz
